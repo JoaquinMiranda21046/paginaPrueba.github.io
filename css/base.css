@@ -1,0 +1,289 @@
+/* ═══════════════════════════════════════════════════════
+   NOOOK — Base Styles: Reset · Typography · Layout · Buttons
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Reset ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--c-text-primary);
+  background-color: var(--c-bg);
+  line-height: 1.65;
+  overflow-x: hidden;
+  cursor: none; /* cursor personalizado en desktop */
+}
+
+/* En mobile restaurar cursor normal */
+@media (hover: none) {
+  body { cursor: auto; }
+  #cursor-dot, #cursor-ring { display: none; }
+}
+
+img, video, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, textarea { font-family: inherit; }
+
+/* ── Custom scrollbar ─────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--c-bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--g-brand);
+  border-radius: var(--radius-full);
+}
+
+/* ── Cursor personalizado ────────────────────────────── */
+#cursor-dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: var(--c-pink);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: width .2s, height .2s, background .2s;
+  will-change: transform;
+}
+
+#cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--c-mauve);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width .4s var(--ease-out-expo),
+              height .4s var(--ease-out-expo),
+              border-color .3s,
+              opacity .3s;
+  will-change: transform;
+}
+
+/* Cursor hover state — activado desde JS */
+body.cursor-hover #cursor-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--c-violet);
+}
+body.cursor-hover #cursor-ring {
+  width: 54px;
+  height: 54px;
+  border-color: var(--c-pink);
+  opacity: .6;
+}
+
+/* ── Container ───────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1360px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ── Secciones ───────────────────────────────────────── */
+section {
+  padding-block: var(--section-y);
+  position: relative;
+}
+
+/* Alternancia de fondo */
+section:nth-child(even) {
+  background-color: var(--c-surface-dim);
+}
+
+/* ── Tipografía de secciones ─────────────────────────── */
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--c-mauve);
+  margin-bottom: var(--space-sm);
+  display: flex;
+  align-items: center;
+  gap: .6em;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  line-height: .95;
+  color: var(--c-text-primary);
+  margin-bottom: var(--space-md);
+  letter-spacing: .01em;
+}
+
+.section-title em {
+  font-style: italic;
+  font-family: var(--font-serif);
+  background: var(--g-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-subtitle {
+  font-size: var(--fs-lead);
+  color: var(--c-text-secondary);
+  max-width: 52ch;
+  line-height: 1.6;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+.section-header .section-eyebrow {
+  justify-content: center;
+}
+.section-header .section-subtitle {
+  margin-inline: auto;
+}
+
+.section-body {
+  font-size: var(--fs-lead);
+  color: var(--c-text-secondary);
+  line-height: 1.7;
+  max-width: 60ch;
+  margin-bottom: var(--space-md);
+}
+
+.section-body strong { color: var(--c-text-primary); font-weight: 600; }
+
+/* ── Botones ─────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .6em;
+  padding: .85em 1.8em;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  letter-spacing: .02em;
+  transition: transform var(--tr-base), box-shadow var(--tr-base), background var(--tr-base), color var(--tr-base);
+  position: relative;
+  overflow: hidden;
+  cursor: none;
+}
+
+/* Efecto ripple hover */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,.08);
+  opacity: 0;
+  transition: opacity var(--tr-fast);
+}
+.btn:hover::before { opacity: 1; }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+/* Primary — gradiente de marca */
+.btn-primary {
+  background: var(--g-brand);
+  color: #fff;
+  box-shadow: var(--shadow-md);
+}
+.btn-primary:hover {
+  box-shadow: var(--shadow-glow);
+}
+
+/* Ghost — borde sutil */
+.btn-ghost {
+  background: transparent;
+  color: var(--c-text-primary);
+  border: 1.5px solid var(--c-line-strong);
+}
+.btn-ghost:hover {
+  border-color: var(--c-mauve);
+  color: var(--c-mauve);
+}
+
+/* Nav CTA — compacto */
+.btn-nav {
+  background: var(--c-text-primary);
+  color: var(--c-bg);
+  padding: .65em 1.4em;
+  font-size: .875rem;
+}
+.btn-nav:hover {
+  background: var(--c-charcoal);
+  transform: translateY(-1px);
+}
+
+/* WhatsApp */
+.btn-whatsapp {
+  background: #25d366;
+  color: #fff;
+  font-size: var(--fs-lead);
+  padding: 1em 2.4em;
+  box-shadow: 0 8px 30px rgba(37,211,102,.3);
+  border-radius: var(--radius-full);
+}
+.btn-whatsapp:hover {
+  background: #1da851;
+  box-shadow: 0 12px 40px rgba(37,211,102,.45);
+  transform: translateY(-3px);
+}
+
+/* Inline link */
+.inline-link {
+  color: var(--c-mauve);
+  font-weight: 500;
+  border-bottom: 1px solid currentColor;
+  transition: color var(--tr-fast);
+}
+.inline-link:hover { color: var(--c-pink); }
+
+/* ── Dot decorativo ──────────────────────────────────── */
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: pulse-dot 2.5s ease-in-out infinite;
+}
+.dot--pink   { background: var(--c-pink); }
+.dot--mauve  { background: var(--c-mauve); }
+.dot--violet { background: var(--c-violet); }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: .6; transform: scale(.75); }
+}
+
+/* ── Utilidades ──────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus visible accesible */
+:focus-visible {
+  outline: 2px solid var(--c-mauve);
+  outline-offset: 3px;
+  border-radius: 4px;
+}

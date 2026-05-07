@@ -1,0 +1,161 @@
+/* ═══════════════════════════════════════════════════════
+   NOOOK — Footer
+   ═══════════════════════════════════════════════════════ */
+
+#footer {
+  background: var(--c-text-primary);
+  color: var(--c-text-on-dark);
+  padding-block: var(--space-2xl) var(--space-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ruido de textura */
+.footer-noise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 180px;
+  pointer-events: none;
+  opacity: .5;
+}
+
+/* Glow sutil superior */
+#footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 200px;
+  background: radial-gradient(ellipse, rgba(186,104,200,.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Grid del footer ─────────────────────────────────── */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-2xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid rgba(149,117,205,.15);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Branding ────────────────────────────────────────── */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.footer-logo-icon {
+  width: 56px;
+  height: auto;
+}
+
+.footer-logo-name {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  letter-spacing: .06em;
+  color: var(--c-text-on-dark);
+  line-height: 1;
+}
+
+.footer-tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-lead);
+  color: var(--c-text-on-dark-muted);
+  max-width: 28ch;
+  line-height: 1.5;
+}
+
+/* ── Nav footer ──────────────────────────────────────── */
+.footer-nav-title {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--c-mauve);
+  margin-bottom: var(--space-sm);
+}
+
+.footer-nav ul,
+.footer-contact ul {
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
+.footer-link {
+  font-size: .9rem;
+  color: var(--c-text-on-dark-muted);
+  transition: color var(--tr-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: .4em;
+}
+
+.footer-link:hover {
+  color: var(--c-text-on-dark);
+}
+
+.footer-link--whatsapp:hover {
+  color: #25d366;
+}
+
+/* ── Footer bottom ───────────────────────────────────── */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-lg);
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.footer-copy,
+.footer-made {
+  font-size: .8rem;
+  color: var(--c-text-on-dark-muted);
+  font-family: var(--font-mono);
+}
+
+.footer-made .heart {
+  color: var(--c-pink);
+  display: inline-block;
+  animation: heartbeat 1.6s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  20%       { transform: scale(1.25); }
+  40%       { transform: scale(1); }
+  60%       { transform: scale(1.15); }
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 760px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+  }
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}

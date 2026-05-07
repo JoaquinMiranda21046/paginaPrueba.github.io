@@ -1,0 +1,146 @@
+/* ═══════════════════════════════════════════════════════
+   NOOOK — Social / Contacto
+   ═══════════════════════════════════════════════════════ */
+
+#contacto {
+  background: var(--c-surface-dim);
+}
+
+/* ── CTA principal WhatsApp ──────────────────────────── */
+.contact-cta-main {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-xl);
+}
+
+/* ── Grid de redes ───────────────────────────────────── */
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin-inline: auto;
+}
+
+/* ── Card de red social ──────────────────────────────── */
+.social-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.4rem 1.2rem;
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-lg);
+  transition: transform var(--tr-base), box-shadow var(--tr-base),
+              border-color var(--tr-base), background var(--tr-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.social-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--g-brand-soft);
+  opacity: 0;
+  transition: opacity var(--tr-base);
+}
+
+.social-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--c-line-strong);
+}
+.social-card:hover::before { opacity: 1; }
+
+/* Iconos con color por plataforma */
+.social-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  transition: transform var(--tr-base);
+}
+
+.social-card:hover .social-icon-wrap {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.social-icon-wrap--instagram {
+  background: linear-gradient(135deg, #f9ce34, #ee2a7b, #6228d7);
+  color: #fff;
+}
+
+.social-icon-wrap--tiktok {
+  background: #010101;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.1);
+}
+
+.social-icon-wrap--facebook {
+  background: #1877f2;
+  color: #fff;
+}
+
+.social-icon-wrap--email {
+  background: var(--g-brand-soft);
+  color: var(--c-mauve);
+  border: 1px solid var(--c-line-strong);
+}
+
+/* Info de la red */
+.social-info {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.social-name {
+  display: block;
+  font-weight: 600;
+  font-size: .9rem;
+  color: var(--c-text-primary);
+  line-height: 1.2;
+}
+
+.social-handle {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  color: var(--c-text-muted);
+  margin-top: .15em;
+}
+
+/* Flecha */
+.social-arrow {
+  font-size: 1.1rem;
+  color: var(--c-text-muted);
+  position: relative;
+  z-index: 1;
+  transition: transform var(--tr-base), color var(--tr-base);
+}
+
+.social-card:hover .social-arrow {
+  transform: translate(3px, -3px);
+  color: var(--c-mauve);
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 860px) {
+  .social-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .social-grid {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    margin-inline: auto;
+  }
+}

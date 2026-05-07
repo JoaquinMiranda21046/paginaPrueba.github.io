@@ -1,0 +1,111 @@
+/* ═══════════════════════════════════════════════════════
+   NOOOK — Design Tokens
+   Paleta inspirada en logo NK: charcoal + rosa/mauve/violet
+   ═══════════════════════════════════════════════════════ */
+
+:root {
+
+  /* ── Colores principales ────────────────────────── */
+  --c-bg:           #f5f3f7;        /* Fondo general: blanco cálido con toque violeta */
+  --c-bg-dark:      #1a1620;        /* Fondo oscuro (secciones alternas) */
+  --c-surface:      #ffffff;        /* Superficie de cards */
+  --c-surface-dim:  #ede9f2;        /* Superficie tenue */
+
+  /* ── Paleta de identidad (logo NK dots) ─────────── */
+  --c-pink:         #f06292;        /* Rosa vibrante — dot 1 */
+  --c-mauve:        #ba68c8;        /* Mauve/morado medio — dot 2 */
+  --c-violet:       #9575cd;        /* Violeta — dot 3 */
+
+  /* Versiones oscuras (hover, glassmorphism) */
+  --c-pink-dark:    #e91e8c;
+  --c-mauve-dark:   #8e24aa;
+  --c-violet-dark:  #673ab7;
+
+  /* Versiones claras (fondos, tints) */
+  --c-pink-tint:    rgba(240,98,146,.10);
+  --c-mauve-tint:   rgba(186,104,200,.10);
+  --c-violet-tint:  rgba(149,117,205,.10);
+
+  /* Gradiente principal (izq → der) */
+  --g-brand:        linear-gradient(135deg, var(--c-pink) 0%, var(--c-mauve) 50%, var(--c-violet) 100%);
+  --g-brand-soft:   linear-gradient(135deg, rgba(240,98,146,.15) 0%, rgba(149,117,205,.15) 100%);
+  --g-text:         linear-gradient(90deg, var(--c-pink), var(--c-violet));
+
+  /* ── Charcoal (logo NK body) ─────────────────────── */
+  --c-charcoal:       #3d3d4a;      /* Gris oscuro principal */
+  --c-charcoal-light: #5a5a6e;      /* Gris medio */
+  --c-charcoal-dim:   #8888a0;      /* Gris apagado */
+
+  /* ── Texto ──────────────────────────────────────── */
+  --c-text-primary:   #1e1b2e;      /* Títulos principales */
+  --c-text-secondary: #4a4760;      /* Cuerpo */
+  --c-text-muted:     #8e8aaa;      /* Texto tenue, labels */
+  --c-text-on-dark:   #f0ecff;      /* Texto sobre fondo oscuro */
+  --c-text-on-dark-muted: rgba(240,236,255,.55);
+
+  /* ── Bordes y líneas ─────────────────────────────── */
+  --c-line:           rgba(149,117,205,.15);
+  --c-line-strong:    rgba(149,117,205,.30);
+
+  /* ── Sombras ─────────────────────────────────────── */
+  --shadow-sm:   0 2px 12px rgba(149,117,205,.08);
+  --shadow-md:   0 8px 32px rgba(149,117,205,.14);
+  --shadow-lg:   0 20px 60px rgba(149,117,205,.20);
+  --shadow-glow: 0 0 40px rgba(240,98,146,.25);
+  --shadow-card: 0 4px 24px rgba(30,27,46,.08);
+
+  /* ── Easings ─────────────────────────────────────── */
+  --ease-out-expo:   cubic-bezier(.16, 1, .3, 1);
+  --ease-in-out:     cubic-bezier(.76, 0, .24, 1);
+  --ease-spring:     cubic-bezier(.34, 1.56, .64, 1);
+  --ease-anticipate: cubic-bezier(.68, -.55, .27, 1.55);
+
+  /* ── Tipografía ──────────────────────────────────── */
+  --font-display:  'Bebas Neue', sans-serif;
+  --font-body:     'DM Sans', sans-serif;
+  --font-serif:    'Cormorant Garamond', serif;
+  --font-mono:     'DM Mono', monospace;
+
+  /* ── Escala de tipo fluida ───────────────────────── */
+  --fs-hero:   clamp(3.8rem, 10vw,  9rem);
+  --fs-h1:     clamp(2.8rem,  7vw,  6rem);
+  --fs-h2:     clamp(2rem,    4vw,  3.5rem);
+  --fs-h3:     clamp(1.4rem,  2.5vw, 2rem);
+  --fs-lead:   clamp(1.05rem, 1.6vw, 1.25rem);
+  --fs-body:   clamp(.9rem,   1.1vw, 1rem);
+  --fs-small:  clamp(.75rem,  .9vw,  .85rem);
+  --fs-mono:   clamp(.7rem,   .9vw,  .8rem);
+
+  /* ── Espaciado fluido ────────────────────────────── */
+  --space-xs:   clamp(.5rem,   1vw,   .75rem);
+  --space-sm:   clamp(.75rem,  1.5vw, 1.25rem);
+  --space-md:   clamp(1.25rem, 2.5vw, 2rem);
+  --space-lg:   clamp(2rem,    4vw,   3.5rem);
+  --space-xl:   clamp(3.5rem,  7vw,   6rem);
+  --space-2xl:  clamp(5rem,    10vw,  9rem);
+
+  --gutter:     clamp(1.25rem, 5vw, 4.5rem);
+  --section-y:  clamp(4.5rem,  10vw, 9rem);
+
+  /* ── Radios ──────────────────────────────────────── */
+  --radius-sm:  8px;
+  --radius-md:  16px;
+  --radius-lg:  24px;
+  --radius-xl:  36px;
+  --radius-full: 9999px;
+
+  /* ── Transiciones ────────────────────────────────── */
+  --tr-fast:   150ms var(--ease-out-expo);
+  --tr-base:   300ms var(--ease-out-expo);
+  --tr-slow:   600ms var(--ease-out-expo);
+  --tr-crawl:  900ms var(--ease-out-expo);
+}
+
+/* ── Dark overrides (secciones oscuras) ──────────── */
+[data-theme="dark"] {
+  --c-bg:           #1a1620;
+  --c-surface:      #231e2e;
+  --c-text-primary: #f0ecff;
+  --c-text-secondary: rgba(240,236,255,.75);
+  --c-line:         rgba(149,117,205,.20);
+}
