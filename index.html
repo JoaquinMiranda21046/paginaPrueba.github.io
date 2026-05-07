@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Noook — Diseñamos la ventana digital de tu negocio. Sitios web premium que convierten visitantes en clientes." />
+  <meta property="og:title" content="Noook | Tu negocio a la vista del mundo" />
+  <meta property="og:description" content="Agencia boutique de diseño web. Sitios modernos, visualmente impactantes y estratégicamente diseñados." />
+  <meta property="og:type" content="website" />
+  <!-- TODO: Actualizar og:image con una imagen representativa del sitio (1200x630px) -->
+  <!-- TODO: Actualizar og:url con el dominio real cuando esté disponible -->
+
+  <title>Noook | Tu negocio a la vista del mundo</title>
+
+  <!-- Google Fonts: Bebas Neue + DM Sans + DM Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/nav.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/packages.css" />
+  <link rel="stylesheet" href="css/portfolio.css" />
+  <link rel="stylesheet" href="css/social.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  CUSTOM CURSOR (solo desktop)               -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="cursor-dot"   aria-hidden="true"></div>
+  <div id="cursor-ring"  aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  LOADER — pantalla de entrada cinematic     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-logo">
+      <!-- Logo NK SVG inline (versión simplificada basada en imagen 1) -->
+      <svg class="loader-nk" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Noook logo">
+        <!-- Laptop frame exterior -->
+        <rect x="5" y="4" width="110" height="66" rx="8" stroke="var(--c-charcoal)" stroke-width="4" fill="none"/>
+        <!-- Laptop base -->
+        <rect x="0" y="70" width="120" height="8" rx="4" fill="var(--c-charcoal)" opacity="0.7"/>
+        <!-- Letra N -->
+        <path d="M22 18 L22 58 L38 32 L38 58" stroke="var(--c-charcoal)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <!-- Letra K -->
+        <path d="M46 18 L46 58" stroke="var(--c-charcoal)" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path d="M46 38 L64 18" stroke="var(--c-charcoal)" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path d="M54 28 L64 58" stroke="var(--c-charcoal)" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <!-- Línea divisora vertical -->
+        <line x1="72" y1="10" x2="72" y2="66" stroke="var(--c-charcoal)" stroke-width="2.5" opacity="0.4"/>
+        <!-- Tres puntos de color (logo signature) -->
+        <circle cx="84"  cy="25" r="5.5" fill="var(--c-pink)"/>
+        <circle cx="96"  cy="25" r="5.5" fill="var(--c-mauve)"/>
+        <circle cx="108" cy="25" r="5.5" fill="var(--c-violet)"/>
+      </svg>
+      <span class="loader-name">Noook</span>
+    </div>
+    <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  NAVEGACIÓN                                 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <nav id="navbar" role="navigation" aria-label="Navegación principal">
+    <div class="nav-container">
+
+      <!-- Logo -->
+      <a href="#hero" class="nav-logo" aria-label="Noook — inicio">
+        <svg class="nav-nk-icon" viewBox="0 0 60 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="2" width="56" height="34" rx="5" stroke="var(--c-charcoal)" stroke-width="2.5" fill="none"/>
+          <rect x="0" y="36" width="60" height="4" rx="2" fill="var(--c-charcoal)" opacity="0.6"/>
+          <path d="M9 9 L9 31 L18 17 L18 31" stroke="var(--c-charcoal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M22 9 L22 31" stroke="var(--c-charcoal)" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M22 20 L31 9" stroke="var(--c-charcoal)" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M27 14 L31 31" stroke="var(--c-charcoal)" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <line x1="36" y1="4" x2="36" y2="34" stroke="var(--c-charcoal)" stroke-width="1.5" opacity="0.35"/>
+          <circle cx="42" cy="13" r="2.8" fill="var(--c-pink)"/>
+          <circle cx="48" cy="13" r="2.8" fill="var(--c-mauve)"/>
+          <circle cx="54" cy="13" r="2.8" fill="var(--c-violet)"/>
+        </svg>
+        <span class="nav-logo-text">Noook</span>
+      </a>
+
+      <!-- Links desktop -->
+      <ul class="nav-links" role="list">
+        <li><a href="#nosotros"  class="nav-link">Nosotros</a></li>
+        <li><a href="#paquetes"  class="nav-link">Paquetes</a></li>
+        <li><a href="#portafolio" class="nav-link">Portafolio</a></li>
+        <li><a href="#contacto"  class="nav-link">Contacto</a></li>
+      </ul>
+
+      <!-- CTA nav -->
+      <a href="#paquetes" class="btn btn-nav" aria-label="Ver paquetes de diseño web">Ver paquetes</a>
+
+      <!-- Hamburger mobile -->
+      <button class="nav-hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true" role="dialog" aria-label="Menú móvil">
+      <ul role="list">
+        <li><a href="#nosotros"   class="mobile-link">Nosotros</a></li>
+        <li><a href="#paquetes"   class="mobile-link">Paquetes</a></li>
+        <li><a href="#portafolio" class="mobile-link">Portafolio</a></li>
+        <li><a href="#contacto"   class="mobile-link">Contacto</a></li>
+      </ul>
+      <a href="#paquetes" class="btn btn-primary mobile-cta">Ver paquetes</a>
+      <!-- TODO: Agregar links de WhatsApp y redes aquí abajo si quieres acceso rápido desde el menú móvil -->
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  SECCIÓN 1: HERO                            -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section id="hero" aria-label="Hero principal">
+
+      <!-- Fondo con gradiente y efecto de ruido -->
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-glow hero-glow--pink"  aria-hidden="true"></div>
+        <div class="hero-glow hero-glow--violet" aria-hidden="true"></div>
+        <div class="hero-noise" aria-hidden="true"></div>
+      </div>
+
+      <div class="hero-container">
+
+        <!-- Tagline superior -->
+        <p class="hero-eyebrow reveal-hero">
+          <span class="dot dot--pink"></span>
+          Tu negocio a la vista del mundo
+        </p>
+
+        <!-- Headline principal -->
+        <h1 class="hero-title">
+          <span class="hero-line-wrap"><span class="hero-line line-1">Diseñamos</span></span>
+          <span class="hero-line-wrap"><span class="hero-line line-2">la ventana</span></span>
+          <span class="hero-line-wrap"><span class="hero-line line-3 line-accent">digital</span></span>
+          <span class="hero-line-wrap"><span class="hero-line line-4">de tu negocio</span></span>
+        </h1>
+
+        <!-- Subheadline -->
+        <p class="hero-sub reveal-hero delay-hero-4">
+          Sitios web premium que convierten visitantes en clientes.<br/>
+          Diseño estratégico. Resultados reales.
+        </p>
+
+        <!-- CTAs -->
+        <div class="hero-ctas reveal-hero delay-hero-5">
+          <a href="#portafolio" class="btn btn-primary" aria-label="Ver portafolio de proyectos">
+            <span>Ver portafolio</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#paquetes" class="btn btn-ghost" aria-label="Conocer paquetes de diseño">
+            <span>Conocer paquetes</span>
+          </a>
+        </div>
+
+        <!-- Stats flotantes -->
+        <div class="hero-stats reveal-hero delay-hero-6" aria-label="Estadísticas">
+          <div class="stat">
+            <strong class="stat-num" data-target="50" aria-label="50 proyectos">0<span>+</span></strong>
+            <span class="stat-label">Proyectos</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat">
+            <strong class="stat-num" data-target="100" aria-label="100% clientes satisfechos">0<span>%</span></strong>
+            <span class="stat-label">Satisfacción</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat">
+            <strong class="stat-num" data-target="48" aria-label="48 horas entrega">0<span>h</span></strong>
+            <span class="stat-label">Entrega express</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Mockup visual hero -->
+      <div class="hero-mockup reveal-hero delay-hero-3" aria-hidden="true">
+        <!-- Browser mockup SVG -->
+        <div class="browser-frame">
+          <div class="browser-bar">
+            <span class="browser-dot" style="background:var(--c-pink)"></span>
+            <span class="browser-dot" style="background:var(--c-mauve)"></span>
+            <span class="browser-dot" style="background:var(--c-violet)"></span>
+            <div class="browser-url">noook.mx</div>
+          </div>
+          <div class="browser-content">
+            <!-- Placeholder visual — puedes reemplazar esto con un screenshot real de un proyecto -->
+            <!-- Para agregar imagen real: <img src="assets/images/mockup-hero.jpg" alt="Ejemplo de sitio web" loading="eager" /> -->
+            <div class="browser-placeholder">
+              <div class="bp-header"></div>
+              <div class="bp-row bp-row--wide"></div>
+              <div class="bp-row bp-row--mid"></div>
+              <div class="bp-grid">
+                <div class="bp-card bp-card--tall"></div>
+                <div class="bp-card"></div>
+                <div class="bp-card"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Glow detrás del mockup -->
+        <div class="mockup-glow" aria-hidden="true"></div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="hero-scroll-hint reveal-hero delay-hero-7" aria-hidden="true">
+        <span class="scroll-line"></span>
+        <span class="scroll-text">scroll</span>
+      </div>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  MARQUEE — transición entre hero y nosotros -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="marquee-strip" aria-hidden="true">
+      <div class="marquee-track" id="marquee-track"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  SECCIÓN 2: QUIÉNES SOMOS                  -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section id="nosotros" aria-labelledby="nosotros-title">
+      <div class="container">
+
+        <div class="nosotros-grid">
+
+          <!-- Columna izquierda — texto -->
+          <div class="nosotros-text">
+            <p class="section-eyebrow reveal">01 — Quiénes somos</p>
+            <h2 class="section-title reveal delay-1" id="nosotros-title">
+              Transformamos<br/>
+              <em>negocios</em> en<br/>
+              experiencias digitales
+            </h2>
+            <p class="section-body reveal delay-2">
+              En <strong>Noook</strong> creamos sitios web modernos, visualmente impactantes y 
+              estratégicamente diseñados para destacar tu marca. No hacemos páginas genéricas — 
+              construimos tu ventana al mundo digital.
+            </p>
+            <p class="section-body reveal delay-3">
+              Cada proyecto es único. Cada píxel tiene un propósito. Cada detalle cuenta.
+            </p>
+
+            <!-- Valores / diferenciadores -->
+            <ul class="nosotros-values reveal delay-4" role="list">
+              <li class="value-item">
+                <span class="value-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="var(--c-pink)" stroke-width="1.5"/><path d="M6 10l3 3 5-5" stroke="var(--c-pink)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span>Diseño premium a medida</span>
+              </li>
+              <li class="value-item">
+                <span class="value-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="var(--c-mauve)" stroke-width="1.5"/><path d="M6 10l3 3 5-5" stroke="var(--c-mauve)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span>Estrategia de conversión incluida</span>
+              </li>
+              <li class="value-item">
+                <span class="value-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="var(--c-violet)" stroke-width="1.5"/><path d="M6 10l3 3 5-5" stroke="var(--c-violet)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span>Soporte y acompañamiento continuo</span>
+              </li>
+            </ul>
+
+            <a href="#paquetes" class="btn btn-primary reveal delay-5">
+              <span>Ver nuestros paquetes</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+
+          <!-- Columna derecha — visual -->
+          <div class="nosotros-visual reveal-right delay-2">
+            <!-- Tarjeta flotante principal -->
+            <div class="nosotros-card nosotros-card--main">
+              <div class="nc-header">
+                <div class="nc-dots" aria-hidden="true">
+                  <span style="background:var(--c-pink)"></span>
+                  <span style="background:var(--c-mauve)"></span>
+                  <span style="background:var(--c-violet)"></span>
+                </div>
+                <span class="nc-label">noook.mx</span>
+              </div>
+              <div class="nc-body">
+                <!-- Placeholder visual que simula un sitio en construcción -->
+                <!-- TODO: Reemplazar con screenshot real de un proyecto terminado -->
+                <div class="nc-mock-hero"></div>
+                <div class="nc-mock-row"></div>
+                <div class="nc-mock-row nc-mock-row--short"></div>
+              </div>
+            </div>
+
+            <!-- Badge flotante — entrega rápida -->
+            <div class="floating-badge badge--speed" aria-label="Entrega en 7 días">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 2v7l4 2" stroke="var(--c-pink)" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="9" r="7.5" stroke="var(--c-pink)" stroke-width="1.5"/></svg>
+              <div>
+                <strong>7 días</strong>
+                <span>Entrega express</span>
+              </div>
+            </div>
+
+            <!-- Badge flotante — clientes -->
+            <div class="floating-badge badge--clients" aria-label="Clientes satisfechos">
+              <div class="badge-avatars" aria-hidden="true">
+                <span class="avatar" style="background:var(--c-pink)">A</span>
+                <span class="avatar" style="background:var(--c-mauve)">B</span>
+                <span class="avatar" style="background:var(--c-violet)">C</span>
+              </div>
+              <div>
+                <strong>+50 clientes</strong>
+                <span>Satisfechos</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  SECCIÓN 3: PAQUETES                        -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section id="paquetes" aria-labelledby="paquetes-title">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <p class="section-eyebrow">02 — Paquetes</p>
+          <h2 class="section-title" id="paquetes-title">
+            Elige tu<br/><em>plan perfecto</em>
+          </h2>
+          <p class="section-subtitle">
+            Invertir en tu presencia digital es invertir en el futuro de tu negocio.
+          </p>
+        </div>
+
+        <div class="packages-grid">
+
+          <!-- ── STARTER ── -->
+          <article class="package-card reveal delay-1" aria-labelledby="pkg-starter-title">
+            <div class="pkg-badge-tier">Starter</div>
+            <div class="pkg-header">
+              <p class="pkg-label">Para comenzar</p>
+              <div class="pkg-price">
+                <!-- TODO: Reemplazar con precio real al definir paquetes -->
+                <span class="pkg-currency">$</span>
+                <span class="pkg-amount">X,XXX</span>
+                <span class="pkg-period">MXN</span>
+              </div>
+              <p class="pkg-note">Pago único · Sin mensualidad</p>
+            </div>
+            <h3 class="pkg-name" id="pkg-starter-title">Starter</h3>
+            <ul class="pkg-features" role="list">
+              <!-- TODO: Ajustar beneficios según plantilla que definas para este paquete -->
+              <li class="pkg-feature pkg-feature--in">Landing page de 1 sección</li>
+              <li class="pkg-feature pkg-feature--in">Diseño responsive (mobile + desktop)</li>
+              <li class="pkg-feature pkg-feature--in">Formulario de contacto</li>
+              <li class="pkg-feature pkg-feature--in">Integración WhatsApp</li>
+              <li class="pkg-feature pkg-feature--in">Dominio + hosting 1 año</li>
+              <li class="pkg-feature pkg-feature--out">SEO avanzado</li>
+              <li class="pkg-feature pkg-feature--out">Animaciones premium</li>
+              <li class="pkg-feature pkg-feature--out">Blog / tienda</li>
+            </ul>
+            <a href="#contacto" class="btn btn-ghost pkg-cta" aria-label="Contratar plan Starter">
+              Empezar ahora
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </article>
+
+          <!-- ── BUSINESS (destacado) ── -->
+          <article class="package-card package-card--featured reveal delay-2" aria-labelledby="pkg-business-title">
+            <div class="pkg-popular-label" aria-label="Más popular">⭐ Más popular</div>
+            <div class="pkg-badge-tier pkg-badge-tier--featured">Business</div>
+            <div class="pkg-header">
+              <p class="pkg-label">El más elegido</p>
+              <div class="pkg-price">
+                <!-- TODO: Reemplazar con precio real al definir paquetes -->
+                <span class="pkg-currency">$</span>
+                <span class="pkg-amount">X,XXX</span>
+                <span class="pkg-period">MXN</span>
+              </div>
+              <p class="pkg-note">Pago único · Sin mensualidad</p>
+            </div>
+            <h3 class="pkg-name" id="pkg-business-title">Business</h3>
+            <ul class="pkg-features" role="list">
+              <!-- TODO: Ajustar beneficios según plantilla que definas para este paquete -->
+              <li class="pkg-feature pkg-feature--in">Sitio multipage (hasta 5 páginas)</li>
+              <li class="pkg-feature pkg-feature--in">Diseño premium personalizado</li>
+              <li class="pkg-feature pkg-feature--in">Animaciones & microinteracciones</li>
+              <li class="pkg-feature pkg-feature--in">SEO básico optimizado</li>
+              <li class="pkg-feature pkg-feature--in">Integración WhatsApp + redes</li>
+              <li class="pkg-feature pkg-feature--in">Dominio + hosting 1 año</li>
+              <li class="pkg-feature pkg-feature--in">1 revisión incluida</li>
+              <li class="pkg-feature pkg-feature--out">Tienda en línea / Blog</li>
+            </ul>
+            <a href="#contacto" class="btn btn-primary pkg-cta" aria-label="Contratar plan Business">
+              Quiero este plan
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </article>
+
+          <!-- ── ELITE ── -->
+          <article class="package-card reveal delay-3" aria-labelledby="pkg-elite-title">
+            <div class="pkg-badge-tier pkg-badge-tier--elite">Elite</div>
+            <div class="pkg-header">
+              <p class="pkg-label">Para escalar</p>
+              <div class="pkg-price">
+                <!-- TODO: Reemplazar con precio real al definir paquetes -->
+                <span class="pkg-currency">$</span>
+                <span class="pkg-amount">X,XXX</span>
+                <span class="pkg-period">MXN</span>
+              </div>
+              <p class="pkg-note">Pago único · Sin mensualidad</p>
+            </div>
+            <h3 class="pkg-name" id="pkg-elite-title">Elite</h3>
+            <ul class="pkg-features" role="list">
+              <!-- TODO: Ajustar beneficios según plantilla que definas para este paquete -->
+              <li class="pkg-feature pkg-feature--in">Todo lo de Business</li>
+              <li class="pkg-feature pkg-feature--in">Tienda en línea o Blog integrado</li>
+              <li class="pkg-feature pkg-feature--in">Animaciones avanzadas & 3D</li>
+              <li class="pkg-feature pkg-feature--in">SEO completo + Google Analytics</li>
+              <li class="pkg-feature pkg-feature--in">Panel de administración</li>
+              <li class="pkg-feature pkg-feature--in">3 revisiones incluidas</li>
+              <li class="pkg-feature pkg-feature--in">Soporte prioritario 3 meses</li>
+              <li class="pkg-feature pkg-feature--in">Estrategia de conversión</li>
+            </ul>
+            <a href="#contacto" class="btn btn-ghost pkg-cta" aria-label="Contratar plan Elite">
+              Quiero lo mejor
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </article>
+
+        </div>
+
+        <!-- CTA secundario bajo paquetes -->
+        <p class="packages-note reveal">
+          ¿No sabes cuál elegir? 
+          <a href="#contacto" class="inline-link">Platícanos tu proyecto</a> y te ayudamos a decidir.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  SECCIÓN 4: PORTAFOLIO / PLANTILLAS         -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section id="portafolio" aria-labelledby="portafolio-title">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <p class="section-eyebrow">03 — Portafolio</p>
+          <h2 class="section-title" id="portafolio-title">
+            Proyectos que<br/><em>hablan solos</em>
+          </h2>
+          <p class="section-subtitle">
+            Cada proyecto es una historia de transformación digital.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Grid portafolio — full bleed -->
+      <div class="portfolio-grid">
+
+        <!--
+          ══════════════════════════════════════════════════
+          INSTRUCCIONES PARA AGREGAR PROYECTOS REALES:
+          
+          1. Agrega imagen en assets/images/ (recomendado: 800x600px, WebP)
+          2. Reemplaza el <div class="portfolio-placeholder"> con:
+             <img src="assets/images/proyecto-nombre.webp" 
+                  alt="Descripción del proyecto" 
+                  loading="lazy" 
+                  width="800" height="600" />
+          3. Actualiza el href del <a> con el link real del proyecto
+          4. Cambia nombre, categoría y descripción de cada card
+          ══════════════════════════════════════════════════
+        -->
+
+        <article class="portfolio-card reveal delay-1">
+          <a href="nooock-landing_v3.html" class="portfolio-card-link" aria-label="Ver proyecto: Restaurante El Portal" target="_blank" rel="noopener">
+            <!-- TODO: Reemplazar con imagen real -->
+            <img src="/imgs/name.png" 
+                  alt="pruebaNook" 
+                  loading="lazy" 
+                  width="800" height="300" />
+            <div class="portfolio-card-info">
+              <span class="portfolio-tag">Landing</span>
+              <h3 class="portfolio-name">NOOOK</h3>
+              <p class="portfolio-desc">Sitio de diseño web personalizado.</p>
+              <span class="portfolio-cta-link" aria-hidden="true">Ver proyecto →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="portfolio-card portfolio-card--tall reveal delay-2">
+          <a href="braza_plantilla.html" class="portfolio-card-link" aria-label="Ver proyecto: Studio Glam" target="_blank" rel="noopener">
+            <!-- TODO: Reemplazar con imagen real -->
+            <img src="/imgs/noookOscuro.png" 
+                  alt="pruebaNook" 
+                  loading="lazy" 
+                  width="800" height="300" />
+            <div class="portfolio-card-info">
+              <span class="portfolio-tag">Brazza</span>
+              <h3 class="portfolio-name">Restaurant</h3>
+              <p class="portfolio-desc">Sitio web de restaurant.</p>
+              <span class="portfolio-cta-link" aria-hidden="true">Ver proyecto →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="portfolio-card reveal delay-3">
+          <a href="taqueria-habannas.html" class="portfolio-card-link" aria-label="Ver proyecto: FitPro Academy" target="_blank" rel="noopener">
+            <!-- TODO: Reemplazar con imagen real -->
+            <div class="portfolio-placeholder pp--3" aria-hidden="true">
+              <div class="pp-bar"></div>
+              <div class="pp-content">
+                <div class="pp-hero-block"></div>
+                <div class="pp-row"></div>
+              </div>
+            </div>
+            <div class="portfolio-card-info">
+              <span class="portfolio-tag">Fitness</span>
+              <h3 class="portfolio-name">FitPro Academy</h3>
+              <p class="portfolio-desc">Plataforma de ventas para cursos de entrenamiento online.</p>
+              <span class="portfolio-cta-link" aria-hidden="true">Ver proyecto →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="portfolio-card portfolio-card--wide reveal delay-1">
+          <a href="#" class="portfolio-card-link" aria-label="Ver proyecto: Inmobiliaria Vistas" target="_blank" rel="noopener">
+            <!-- TODO: Reemplazar con imagen real -->
+            <div class="portfolio-placeholder pp--4" aria-hidden="true">
+              <div class="pp-bar"></div>
+              <div class="pp-content">
+                <div class="pp-hero-block"></div>
+                <div class="pp-row"></div>
+              </div>
+            </div>
+            <div class="portfolio-card-info">
+              <span class="portfolio-tag">Inmobiliaria</span>
+              <h3 class="portfolio-name">Vistas Residencial</h3>
+              <p class="portfolio-desc">Sitio corporativo con catálogo de propiedades y contacto directo.</p>
+              <span class="portfolio-cta-link" aria-hidden="true">Ver proyecto →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="portfolio-card reveal delay-2">
+          <a href="#" class="portfolio-card-link" aria-label="Ver proyecto: Café Alma" target="_blank" rel="noopener">
+            <!-- TODO: Reemplazar con imagen real -->
+            <div class="portfolio-placeholder pp--5" aria-hidden="true">
+              <div class="pp-bar"></div>
+              <div class="pp-content">
+                <div class="pp-hero-block"></div>
+                <div class="pp-row"></div>
+              </div>
+            </div>
+            <div class="portfolio-card-info">
+              <span class="portfolio-tag">Café</span>
+              <h3 class="portfolio-name">Café Alma</h3>
+              <p class="portfolio-desc">Branding digital y menú interactivo para café boutique.</p>
+              <span class="portfolio-cta-link" aria-hidden="true">Ver proyecto →</span>
+            </div>
+          </a>
+        </article>
+
+      </div><!-- /portfolio-grid -->
+
+      <div class="container">
+        <div class="portfolio-footer reveal">
+          <p>¿Quieres ver más proyectos?</p>
+          <!-- TODO: Cambiar href por el link real de Instagram o portafolio externo -->
+          <a href="#" class="btn btn-ghost" target="_blank" rel="noopener" aria-label="Ver más proyectos en Instagram">
+            Ver más en Instagram
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  SECCIÓN 5: REDES SOCIALES / CONTACTO      -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section id="contacto" aria-labelledby="contacto-title">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <p class="section-eyebrow">04 — Contacto</p>
+          <h2 class="section-title" id="contacto-title">
+            Hablemos de<br/><em>tu proyecto</em>
+          </h2>
+          <p class="section-subtitle">
+            Estamos listos para llevar tu negocio al siguiente nivel.
+          </p>
+        </div>
+
+        <!-- CTA principal WhatsApp -->
+        <div class="contact-cta-main reveal delay-1">
+          <a 
+            href="https://wa.me/521XXXXXXXXXX?text=Hola%20Noook%2C%20me%20interesa%20un%20sitio%20web"
+            class="btn btn-whatsapp"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Contactar por WhatsApp"
+          >
+            <!-- TODO: Reemplazar 521XXXXXXXXXX con número real: 521 + código de área + número sin guiones -->
+            <!-- Ejemplo: 5215512345678 para CDMX -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span>Escribirnos por WhatsApp</span>
+          </a>
+        </div>
+
+        <!-- Redes sociales -->
+        <div class="social-grid reveal delay-2">
+
+          <!-- Instagram -->
+          <a 
+            href="#"
+            class="social-card"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Seguir a Noook en Instagram"
+          >
+            <!-- TODO: Reemplazar href con URL real de Instagram: https://instagram.com/TU_USUARIO -->
+            <div class="social-icon-wrap social-icon-wrap--instagram" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </div>
+            <div class="social-info">
+              <span class="social-name">Instagram</span>
+              <!-- TODO: Reemplazar con usuario real -->
+              <span class="social-handle">@noook.mx</span>
+            </div>
+            <span class="social-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <!-- TikTok -->
+          <a 
+            href="#"
+            class="social-card"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Seguir a Noook en TikTok"
+          >
+            <!-- TODO: Reemplazar href con URL real de TikTok: https://tiktok.com/@TU_USUARIO -->
+            <div class="social-icon-wrap social-icon-wrap--tiktok" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.17a8.18 8.18 0 004.79 1.54V7.27a4.85 4.85 0 01-1.02-.58z"/></svg>
+            </div>
+            <div class="social-info">
+              <span class="social-name">TikTok</span>
+              <!-- TODO: Reemplazar con usuario real -->
+              <span class="social-handle">@noook.mx</span>
+            </div>
+            <span class="social-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <!-- Facebook -->
+          <a 
+            href="#"
+            class="social-card"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Seguir a Noook en Facebook"
+          >
+            <!-- TODO: Reemplazar href con URL real de Facebook: https://facebook.com/TU_PAGINA -->
+            <div class="social-icon-wrap social-icon-wrap--facebook" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </div>
+            <div class="social-info">
+              <span class="social-name">Facebook</span>
+              <!-- TODO: Reemplazar con página real -->
+              <span class="social-handle">Noook Digital</span>
+            </div>
+            <span class="social-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <!-- Correo -->
+          <a 
+            href="mailto:hola@noook.mx"
+            class="social-card"
+            aria-label="Enviar correo a Noook"
+          >
+            <!-- TODO: Reemplazar href con el correo real: mailto:TU_CORREO -->
+            <div class="social-icon-wrap social-icon-wrap--email" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+            </div>
+            <div class="social-info">
+              <span class="social-name">Correo</span>
+              <!-- TODO: Reemplazar con correo real -->
+              <span class="social-handle">hola@noook.mx</span>
+            </div>
+            <span class="social-arrow" aria-hidden="true">↗</span>
+          </a>
+
+        </div><!-- /social-grid -->
+
+      </div>
+    </section>
+
+  </main><!-- /main -->
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  FOOTER                                     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <footer id="footer" role="contentinfo">
+    <div class="footer-noise" aria-hidden="true"></div>
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <!-- Branding -->
+        <div class="footer-brand">
+          <!-- Logo NK inline -->
+          <svg class="footer-logo-icon" viewBox="0 0 60 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2" y="2" width="56" height="34" rx="5" stroke="var(--c-charcoal-light)" stroke-width="2.5" fill="none"/>
+            <rect x="0" y="36" width="60" height="4" rx="2" fill="var(--c-charcoal-light)" opacity="0.5"/>
+            <path d="M9 9 L9 31 L18 17 L18 31" stroke="var(--c-charcoal-light)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M22 9 L22 31" stroke="var(--c-charcoal-light)" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M22 20 L31 9" stroke="var(--c-charcoal-light)" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M27 14 L31 31" stroke="var(--c-charcoal-light)" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <line x1="36" y1="4" x2="36" y2="34" stroke="var(--c-charcoal-light)" stroke-width="1.5" opacity="0.3"/>
+            <circle cx="42" cy="13" r="2.8" fill="var(--c-pink)"/>
+            <circle cx="48" cy="13" r="2.8" fill="var(--c-mauve)"/>
+            <circle cx="54" cy="13" r="2.8" fill="var(--c-violet)"/>
+          </svg>
+          <span class="footer-logo-name">Noook</span>
+          <p class="footer-tagline">Tu negocio a la vista del mundo</p>
+          <!-- TODO: Agregar logotipo completo "Noook" (imagen 2) cuando tengas el archivo PNG/SVG -->
+          <!-- <img src="assets/images/logo-noook-full.png" alt="Noook" class="footer-logo-full" width="140" height="auto" loading="lazy" /> -->
+        </div>
+
+        <!-- Links de navegación -->
+        <nav class="footer-nav" aria-label="Navegación del footer">
+          <p class="footer-nav-title">Navegación</p>
+          <ul role="list">
+            <li><a href="#nosotros"   class="footer-link">Nosotros</a></li>
+            <li><a href="#paquetes"   class="footer-link">Paquetes</a></li>
+            <li><a href="#portafolio" class="footer-link">Portafolio</a></li>
+            <li><a href="#contacto"   class="footer-link">Contacto</a></li>
+          </ul>
+        </nav>
+
+        <!-- Contacto rápido -->
+        <div class="footer-contact">
+          <p class="footer-nav-title">Contáctanos</p>
+          <ul role="list">
+            <li>
+              <!-- TODO: Reemplazar con número real -->
+              <a href="https://wa.me/521XXXXXXXXXX" class="footer-link footer-link--whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp de Noook">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                WhatsApp
+              </a>
+            </li>
+            <li>
+              <!-- TODO: Reemplazar con correo real -->
+              <a href="mailto:hola@noook.mx" class="footer-link" aria-label="Correo de Noook">
+                hola@noook.mx
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div><!-- /footer-grid -->
+
+      <!-- Footer bottom -->
+      <div class="footer-bottom">
+        <p class="footer-copy">
+          © <span id="footer-year"></span> Noook. Todos los derechos reservados.
+        </p>
+        <p class="footer-made">
+          Hecho con 
+          <span class="heart" aria-label="amor">♥</span>
+          en México
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+
+</body>
+</html>

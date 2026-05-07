@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BRAZZA TACOS & GRILL — Texcoco de Mora</title>
+  <meta name="description" content="Taquería y restaurante familiar en Texcoco. Parrilladas, tacos, burritos, frijoles charros, micheladas y más. Ven a disfrutar en familia." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =====================================================
+       DESIGN TOKENS — edit here to retheme the whole site
+    ===================================================== */
+    :root {
+      --c-terracota:   #C0392B;
+      --c-terracota-dk:#9B2D23;
+      --c-gold:        #D4A017;
+      --c-gold-lt:     #E8C048;
+      --c-cream:       #F5EDD3;
+      --c-cream-dk:    #EAD9B8;
+      --c-green:       #1A3A2A;
+      --c-green-lt:    #2C5940;
+      --c-carbon:      #1C1208;
+      --c-carbon-lt:   #2E1F10;
+      --c-white:       #FFFDF7;
+      --c-text:        #3A2A1A;
+      --c-text-muted:  #7A6048;
+
+      --ff-heading: 'Playfair Display', Georgia, serif;
+      --ff-display: 'Bebas Neue', sans-serif;
+      --ff-body:    'Lato', system-ui, sans-serif;
+
+      --space-xs:  0.5rem;
+      --space-sm:  1rem;
+      --space-md:  2rem;
+      --space-lg:  4rem;
+      --space-xl:  7rem;
+
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 32px;
+
+      --shadow-card: 0 8px 40px rgba(28,18,8,.18);
+      --shadow-btn:  0 4px 20px rgba(192,57,43,.40);
+
+      --nav-h: 72px;
+      --transition: 0.4s cubic-bezier(.16,1,.3,1);
+    }
+
+    /* =====================================================
+       RESET & BASE
+    ===================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--ff-body);
+      background: var(--c-white);
+      color: var(--c-text);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; text-decoration: none; }
+    button { cursor: none; font-family: var(--ff-body); }
+
+    /* =====================================================
+       CUSTOM CURSOR (desktop only)
+    ===================================================== */
+    #cursor-dot, #cursor-ring {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+    }
+    #cursor-dot {
+      width: 7px; height: 7px;
+      background: var(--c-gold);
+      transition: opacity .2s;
+    }
+    #cursor-ring {
+      width: 38px; height: 38px;
+      border: 1.5px solid rgba(212,160,23,.5);
+      transition: width .35s var(--transition),
+                  height .35s var(--transition),
+                  border-color .35s;
+    }
+    body.cursor-hover #cursor-ring {
+      width: 60px; height: 60px;
+      border-color: rgba(212,160,23,.85);
+    }
+
+    @media (max-width: 768px) {
+      body { cursor: auto; }
+      #cursor-dot, #cursor-ring { display: none; }
+    }
+
+    /* =====================================================
+       SCROLL REVEAL
+    ===================================================== */
+    .reveal       { opacity: 0; transform: translateY(48px); }
+    .reveal-left  { opacity: 0; transform: translateX(-56px); }
+    .reveal-right { opacity: 0; transform: translateX(56px); }
+    .reveal-scale { opacity: 0; transform: scale(0.93); }
+
+    .reveal, .reveal-left, .reveal-right, .reveal-scale {
+      transition: opacity .9s var(--transition),
+                  transform .9s var(--transition);
+    }
+    .reveal.visible, .reveal-left.visible,
+    .reveal-right.visible, .reveal-scale.visible {
+      opacity: 1; transform: none;
+    }
+    .delay-1 { transition-delay: .10s !important; }
+    .delay-2 { transition-delay: .22s !important; }
+    .delay-3 { transition-delay: .36s !important; }
+    .delay-4 { transition-delay: .52s !important; }
+    .delay-5 { transition-delay: .68s !important; }
+
+    /* =====================================================
+       NAVIGATION
+    ===================================================== */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--space-md);
+      transition: background .5s, box-shadow .5s, padding .4s;
+    }
+    #navbar.scrolled {
+      background: var(--c-carbon);
+      box-shadow: 0 4px 32px rgba(0,0,0,.35);
+      padding: 0 var(--space-md);
+    }
+
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      user-select: none;
+    }
+    .nav-logo .logo-main {
+      font-family: var(--ff-display);
+      font-size: 1.55rem;
+      letter-spacing: .06em;
+      color: var(--c-gold);
+    }
+    .nav-logo .logo-sub {
+      font-family: var(--ff-body);
+      font-size: .62rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--c-cream);
+      opacity: .7;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    nav ul a {
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--c-cream);
+      opacity: .75;
+      transition: opacity .25s, color .25s;
+      position: relative;
+    }
+    nav ul a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -3px;
+      width: 0; height: 1.5px;
+      background: var(--c-gold);
+      transition: width .3s var(--transition);
+    }
+    nav ul a:hover { opacity: 1; color: var(--c-gold); }
+    nav ul a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--c-terracota);
+      color: var(--c-white) !important;
+      padding: .5rem 1.25rem;
+      border-radius: 50px;
+      opacity: 1 !important;
+      transition: background .25s, transform .2s !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--c-terracota-dk) !important; transform: scale(1.04); }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 26px; height: 2px;
+      background: var(--c-gold);
+      border-radius: 2px;
+      transition: .3s;
+    }
+
+    @media (max-width: 900px) {
+      .nav-toggle { display: flex; }
+      nav ul {
+        position: fixed;
+        top: 0; right: 0;
+        height: 100vh;
+        width: min(320px, 90vw);
+        background: var(--c-carbon);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem;
+        transform: translateX(100%);
+        transition: transform .45s var(--transition);
+        box-shadow: -8px 0 40px rgba(0,0,0,.4);
+      }
+      nav ul.open { transform: translateX(0); }
+      nav ul a { font-size: 1.1rem; }
+    }
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+    #hero {
+      position: relative;
+      height: 100svh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* Parallax background */
+    .hero-bg {
+      position: absolute;
+      inset: -18%;
+      background:
+        url('https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=1800&q=80')
+        center/cover no-repeat;
+      will-change: transform;
+      filter: brightness(.48) saturate(1.1);
+    }
+
+    /* Radial warm glow */
+    .hero-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 60%,
+        rgba(212,160,23,.18) 0%,
+        transparent 70%);
+      z-index: 1;
+    }
+
+    /* Dark gradient bottom */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(28,18,8,.2) 0%,
+        rgba(28,18,8,.05) 40%,
+        rgba(28,18,8,.7) 100%
+      );
+      z-index: 1;
+    }
+
+    /* Decorative fire-line */
+    .hero-line {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--c-gold), var(--c-terracota), var(--c-gold), transparent);
+      z-index: 2;
+      opacity: .7;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      padding: 0 1.5rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(212,160,23,.15);
+      border: 1px solid rgba(212,160,23,.4);
+      border-radius: 50px;
+      padding: .4rem 1.1rem;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--c-gold-lt);
+      margin-bottom: 1.6rem;
+      backdrop-filter: blur(8px);
+      /* Entry animation */
+      opacity: 0;
+      animation: fadeUp .8s .4s cubic-bezier(.16,1,.3,1) forwards;
+    }
+
+    .hero-title-wrap { overflow: hidden; }
+    .hero-title {
+      font-family: var(--ff-display);
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      letter-spacing: .04em;
+      line-height: .9;
+      color: var(--c-white);
+      margin-bottom: .4rem;
+      display: block;
+      transform: translateY(110%);
+      animation: slideUp .9s .65s cubic-bezier(.16,1,.3,1) forwards;
+    }
+    .hero-title .accent { color: var(--c-gold); }
+
+    .hero-sub-wrap { overflow: hidden; }
+    .hero-sub {
+      font-family: var(--ff-display);
+      font-size: clamp(1.4rem, 4vw, 3.2rem);
+      letter-spacing: .12em;
+      color: var(--c-cream);
+      opacity: .85;
+      display: block;
+      transform: translateY(110%);
+      animation: slideUp .9s .85s cubic-bezier(.16,1,.3,1) forwards;
+    }
+
+    .hero-tagline {
+      font-size: clamp(.95rem, 2vw, 1.15rem);
+      color: var(--c-cream);
+      opacity: 0;
+      margin: 1.4rem auto .1rem;
+      max-width: 500px;
+      line-height: 1.6;
+      font-style: italic;
+      animation: fadeUp .8s 1.1s cubic-bezier(.16,1,.3,1) forwards;
+    }
+
+    .hero-stars {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .3rem;
+      opacity: 0;
+      margin-bottom: 2rem;
+      animation: fadeUp .8s 1.25s cubic-bezier(.16,1,.3,1) forwards;
+    }
+    .hero-stars .star { color: var(--c-gold); font-size: 1.1rem; }
+    .hero-stars .rating-text {
+      font-size: .9rem;
+      color: var(--c-cream);
+      font-weight: 700;
+      margin-left: .4rem;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .8s 1.45s cubic-bezier(.16,1,.3,1) forwards;
+    }
+
+    /* Keyframes */
+    @keyframes slideUp {
+      from { transform: translateY(110%); }
+      to   { transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.06); }
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      opacity: 0;
+      animation: fadeUp 1s 1.8s forwards;
+    }
+    .hero-scroll span {
+      font-size: .65rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(245,237,211,.5);
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--c-gold), transparent);
+      animation: pulse 2s 2.5s ease-in-out infinite;
+    }
+
+    /* =====================================================
+       BUTTONS
+    ===================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .85rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: .92rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border: 2px solid transparent;
+      transition: transform .2s, box-shadow .3s, background .25s, color .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,.12);
+      opacity: 0;
+      transition: opacity .25s;
+    }
+    .btn:hover::before { opacity: 1; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--c-terracota);
+      color: var(--c-white);
+      box-shadow: var(--shadow-btn);
+    }
+    .btn-primary:hover { box-shadow: 0 8px 30px rgba(192,57,43,.55); }
+
+    .btn-outline {
+      border-color: rgba(245,237,211,.6);
+      color: var(--c-white);
+      backdrop-filter: blur(8px);
+    }
+    .btn-outline:hover {
+      border-color: var(--c-gold);
+      color: var(--c-gold);
+    }
+
+    .btn-gold {
+      background: var(--c-gold);
+      color: var(--c-carbon);
+      box-shadow: 0 4px 20px rgba(212,160,23,.35);
+    }
+    .btn-gold:hover { background: var(--c-gold-lt); box-shadow: 0 8px 30px rgba(212,160,23,.55); }
+
+    .btn-dark {
+      background: var(--c-carbon);
+      color: var(--c-gold);
+      border-color: var(--c-gold);
+    }
+    .btn-dark:hover { background: var(--c-carbon-lt); }
+
+    /* =====================================================
+       MARQUEE STRIP
+    ===================================================== */
+    .marquee-strip {
+      background: var(--c-terracota);
+      overflow: hidden;
+      padding: .9rem 0;
+      position: relative;
+      z-index: 2;
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-item {
+      font-family: var(--ff-display);
+      font-size: 1.05rem;
+      letter-spacing: .15em;
+      color: var(--c-white);
+      white-space: nowrap;
+      padding: 0 2rem;
+      opacity: .88;
+    }
+    .marquee-dot { color: var(--c-gold); margin: 0 .2rem; }
+
+    /* =====================================================
+       SECTION COMMONS
+    ===================================================== */
+    section { position: relative; }
+
+    .section-label {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--c-terracota);
+      margin-bottom: .75rem;
+    }
+    .section-label::before {
+      content: '✦  ';
+      color: var(--c-gold);
+    }
+
+    .section-title {
+      font-family: var(--ff-heading);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.12;
+      color: var(--c-carbon);
+      margin-bottom: 1rem;
+    }
+    .section-title .accent { color: var(--c-terracota); }
+    .section-title .gold   { color: var(--c-gold); }
+
+    .section-body {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--c-text-muted);
+      max-width: 600px;
+    }
+
+    .gold-divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--c-gold), var(--c-terracota));
+      border-radius: 2px;
+      margin: 1rem 0 1.5rem;
+    }
+
+    /* =====================================================
+       PRESENTACIÓN
+    ===================================================== */
+    #presentacion {
+      padding: var(--space-xl) var(--space-md);
+      background: var(--c-cream);
+    }
+    .presentacion-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .presentacion-img-wrap {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .presentacion-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      transition: transform 1.2s var(--transition);
+      background: var(--c-cream-dk);
+      /* Placeholder gradient while image loads */
+      background-image: linear-gradient(135deg, #C8845A 0%, #8B3A2A 50%, #1A3A2A 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .presentacion-img-wrap:hover .presentacion-img { transform: scale(1.04); }
+
+    /* Image placeholder emoji */
+    .img-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-size: 5rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .img-placeholder::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%; transform: translateX(-50%);
+      font-family: var(--ff-heading);
+      font-size: .95rem;
+      font-style: italic;
+      color: rgba(255,255,255,.75);
+      white-space: nowrap;
+    }
+
+    /* Floating badge on image */
+    .img-badge {
+      position: absolute;
+      bottom: 1.5rem; right: -1.5rem;
+      background: var(--c-carbon);
+      color: var(--c-gold);
+      border: 2px solid var(--c-gold);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.4rem;
+      text-align: center;
+      box-shadow: var(--shadow-card);
+      animation: float 4s ease-in-out infinite;
+    }
+    .img-badge .badge-num {
+      font-family: var(--ff-display);
+      font-size: 2.2rem;
+      display: block;
+      line-height: 1;
+    }
+    .img-badge .badge-text {
+      font-size: .72rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--c-cream);
+      opacity: .8;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      padding: .9rem;
+      background: white;
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--c-gold);
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      transition: box-shadow .3s, transform .3s;
+    }
+    .feature-item:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,.12);
+      transform: translateY(-2px);
+    }
+    .feature-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .feature-text {
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--c-text);
+      line-height: 1.3;
+    }
+
+    @media (max-width: 900px) {
+      .presentacion-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .img-badge { right: 1rem; }
+    }
+
+    /* =====================================================
+       ESPECIALIDADES
+    ===================================================== */
+    #especialidades {
+      padding: var(--space-xl) var(--space-md);
+      background: var(--c-carbon);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Texture overlay */
+    #especialidades::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4A017' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 1;
+    }
+
+    .especialidades-header {
+      max-width: 1200px;
+      margin: 0 auto 3.5rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .especialidades-header .section-title { color: var(--c-cream); }
+    .especialidades-header .section-label { color: var(--c-gold); }
+
+    .cards-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .cards-grid .card-featured {
+      grid-column: span 3;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    .dish-card {
+      background: var(--c-carbon-lt);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid rgba(212,160,23,.12);
+      transition: transform .4s var(--transition), box-shadow .4s;
+      position: relative;
+    }
+    .dish-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+
+    .dish-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      position: relative;
+    }
+    .card-featured .dish-img { aspect-ratio: unset; height: 100%; min-height: 320px; }
+
+    .dish-img-inner {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .8s var(--transition);
+      background-image: linear-gradient(135deg, #8B3A2A, #C0392B, #D4A017);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    .dish-card:hover .dish-img-inner { transform: scale(1.08); }
+
+    /* Gradient overlay on images */
+    .dish-img::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 50%;
+      background: linear-gradient(to top, rgba(28,18,8,.85), transparent);
+      pointer-events: none;
+    }
+
+    .dish-tag {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      background: var(--c-terracota);
+      color: var(--c-white);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: .3rem .8rem;
+      border-radius: 50px;
+      z-index: 2;
+    }
+
+    .dish-info {
+      padding: 1.4rem 1.5rem 1.6rem;
+    }
+    .card-featured .dish-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.5rem;
+    }
+
+    .dish-name {
+      font-family: var(--ff-heading);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--c-cream);
+      margin-bottom: .5rem;
+    }
+    .card-featured .dish-name { font-size: 1.9rem; }
+
+    .dish-desc {
+      font-size: .9rem;
+      color: rgba(245,237,211,.6);
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+
+    .dish-price {
+      font-family: var(--ff-display);
+      font-size: 1.4rem;
+      color: var(--c-gold);
+      letter-spacing: .05em;
+    }
+    .price-note {
+      font-size: .75rem;
+      color: rgba(245,237,211,.4);
+      margin-left: .4rem;
+      font-family: var(--ff-body);
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    @media (max-width: 1000px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .cards-grid .card-featured { grid-column: span 2; }
+    }
+    @media (max-width: 650px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      .cards-grid .card-featured {
+        grid-column: span 1;
+        grid-template-columns: 1fr;
+      }
+      .card-featured .dish-img { min-height: 250px; }
+    }
+
+    /* =====================================================
+       RESEÑAS
+    ===================================================== */
+    #resenas {
+      padding: var(--space-xl) var(--space-md);
+      background: var(--c-cream);
+      overflow: hidden;
+    }
+    .resenas-header {
+      max-width: 700px;
+      margin: 0 auto var(--space-lg);
+      text-align: center;
+    }
+
+    .testimonials-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .testimonial-card {
+      background: var(--c-white);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,.07);
+      border-top: 3px solid var(--c-gold);
+      position: relative;
+      transition: transform .35s var(--transition), box-shadow .35s;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.14);
+    }
+
+    .testimonial-quote {
+      font-size: 3.5rem;
+      line-height: 1;
+      color: var(--c-gold);
+      opacity: .25;
+      font-family: Georgia, serif;
+      position: absolute;
+      top: 1rem; right: 1.5rem;
+    }
+
+    .testimonial-stars {
+      display: flex;
+      gap: .2rem;
+      margin-bottom: 1rem;
+      color: var(--c-gold);
+      font-size: .95rem;
+    }
+
+    .testimonial-text {
+      font-size: .97rem;
+      line-height: 1.7;
+      color: var(--c-text);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+    }
+    .author-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .author-name {
+      font-weight: 700;
+      font-size: .9rem;
+      color: var(--c-carbon);
+    }
+    .author-meta {
+      font-size: .78rem;
+      color: var(--c-text-muted);
+      margin-top: .15rem;
+    }
+
+    /* Overall rating banner */
+    .rating-banner {
+      max-width: 1200px;
+      margin: 3rem auto 0;
+      background: var(--c-carbon);
+      border-radius: var(--radius-md);
+      padding: 2.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .rating-big {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .rating-num {
+      font-family: var(--ff-display);
+      font-size: 4.5rem;
+      color: var(--c-gold);
+      line-height: 1;
+    }
+    .rating-stars-big {
+      display: flex;
+      gap: .3rem;
+      font-size: 1.5rem;
+      color: var(--c-gold);
+      margin-bottom: .4rem;
+    }
+    .rating-label {
+      font-size: .8rem;
+      color: rgba(245,237,211,.55);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .rating-banner-cta .section-title {
+      color: var(--c-cream);
+      font-size: 1.5rem;
+      margin-bottom: .5rem;
+    }
+    .rating-banner-cta p {
+      color: rgba(245,237,211,.6);
+      font-size: .9rem;
+    }
+
+    @media (max-width: 900px) {
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .rating-banner { padding: 2rem; }
+    }
+    @media (max-width: 600px) {
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+
+    /* =====================================================
+       SERVICIOS
+    ===================================================== */
+    #servicios {
+      padding: var(--space-xl) var(--space-md);
+      background: var(--c-green);
+      position: relative;
+      overflow: hidden;
+    }
+    #servicios::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='1' fill='%23D4A017' fill-opacity='.06'/%3E%3C/svg%3E");
+      background-size: 80px 80px;
+    }
+
+    .servicios-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .servicios-header .section-title { color: var(--c-cream); }
+    .servicios-header .section-label { color: var(--c-gold-lt); }
+    .servicios-header .section-body  { color: rgba(245,237,211,.65); }
+    .servicios-header .gold-divider  { margin-bottom: 2rem; }
+
+    .servicios-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .servicio-item {
+      background: rgba(245,237,211,.06);
+      border: 1px solid rgba(245,237,211,.1);
+      border-radius: var(--radius-sm);
+      padding: 1.4rem 1.2rem;
+      text-align: center;
+      transition: background .3s, transform .3s, border-color .3s;
+    }
+    .servicio-item:hover {
+      background: rgba(212,160,23,.12);
+      border-color: rgba(212,160,23,.3);
+      transform: translateY(-4px);
+    }
+    .servicio-icon {
+      font-size: 2rem;
+      margin-bottom: .6rem;
+      display: block;
+    }
+    .servicio-name {
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--c-cream);
+      letter-spacing: .05em;
+    }
+    .servicio-desc {
+      font-size: .78rem;
+      color: rgba(245,237,211,.5);
+      margin-top: .25rem;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 900px) {
+      .servicios-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    @media (max-width: 500px) {
+      .servicios-grid { grid-template-columns: 1fr; }
+    }
+
+    /* =====================================================
+       UBICACIÓN
+    ===================================================== */
+    #ubicacion {
+      padding: var(--space-xl) var(--space-md);
+      background: var(--c-carbon-lt);
+      position: relative;
+    }
+    .ubicacion-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .ubicacion-header .section-title { color: var(--c-cream); }
+    .ubicacion-header .section-label { color: var(--c-gold); }
+
+    .contact-list {
+      list-style: none;
+      margin: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .contact-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      color: rgba(245,237,211,.75);
+      font-size: .97rem;
+      line-height: 1.5;
+    }
+    .contact-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: rgba(212,160,23,.12);
+      border: 1px solid rgba(212,160,23,.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .contact-label {
+      font-size: .72rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      font-weight: 700;
+      display: block;
+      margin-bottom: .15rem;
+    }
+
+    .contact-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Map placeholder */
+    .map-wrap {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.4);
+      position: relative;
+    }
+    .map-placeholder {
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(135deg, #1A3A2A, #0D2018);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .map-placeholder::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='.8' fill='%23D4A017' fill-opacity='.08'/%3E%3C/svg%3E") center/40px 40px;
+    }
+    .map-label-text {
+      font-family: var(--ff-heading);
+      font-size: 1rem;
+      color: rgba(245,237,211,.5);
+      font-style: italic;
+      position: relative;
+      text-align: center;
+      max-width: 250px;
+    }
+    .map-pin {
+      font-size: 3rem;
+      position: relative;
+      animation: float 3s ease-in-out infinite;
+    }
+    .map-open-btn {
+      position: absolute;
+      bottom: 1.5rem; left: 50%;
+      transform: translateX(-50%);
+    }
+
+    @media (max-width: 900px) {
+      .ubicacion-inner { grid-template-columns: 1fr; }
+    }
+
+    /* =====================================================
+       CTA FINAL
+    ===================================================== */
+    #cta-final {
+      position: relative;
+      padding: var(--space-xl) var(--space-md);
+      text-align: center;
+      overflow: hidden;
+    }
+    .cta-bg {
+      position: absolute;
+      inset: -18%;
+      background:
+        url('https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=1800&q=80')
+        center/cover no-repeat;
+      will-change: transform;
+      filter: brightness(.35) saturate(1.2);
+    }
+    .cta-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg,
+        rgba(28,18,8,.88) 0%,
+        rgba(192,57,43,.3) 50%,
+        rgba(28,18,8,.88) 100%);
+    }
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .cta-content .section-label { color: var(--c-gold-lt); }
+    .cta-content .section-title { color: var(--c-cream); margin-bottom: 1rem; }
+    .cta-content p {
+      color: rgba(245,237,211,.7);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 550px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+    footer {
+      background: var(--c-carbon);
+      border-top: 1px solid rgba(212,160,23,.12);
+      padding: 3rem var(--space-md) 2rem;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2.5rem;
+    }
+    .footer-logo .logo-main {
+      font-family: var(--ff-display);
+      font-size: 2rem;
+      color: var(--c-gold);
+      letter-spacing: .06em;
+      display: block;
+      margin-bottom: .25rem;
+    }
+    .footer-logo .logo-sub {
+      font-size: .7rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(245,237,211,.4);
+    }
+    .footer-desc {
+      font-size: .9rem;
+      color: rgba(245,237,211,.45);
+      line-height: 1.65;
+      margin-top: 1rem;
+      max-width: 320px;
+    }
+    .footer-col h4 {
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li {
+      font-size: .88rem;
+      color: rgba(245,237,211,.5);
+      margin-bottom: .5rem;
+      transition: color .2s;
+    }
+    .footer-col ul li a { transition: color .2s; }
+    .footer-col ul li a:hover { color: var(--c-gold); }
+    .footer-col ul li:hover { color: rgba(245,237,211,.8); }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(245,237,211,.07);
+      font-size: .8rem;
+      color: rgba(245,237,211,.3);
+    }
+    .footer-stars { color: var(--c-gold); letter-spacing: .1rem; }
+
+    @media (max-width: 768px) {
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+
+    /* =====================================================
+       FLOATING BUTTONS
+    ===================================================== */
+    .float-btns {
+      position: fixed;
+      bottom: 2rem; right: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      z-index: 800;
+    }
+    .float-btn {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 6px 24px rgba(0,0,0,.35);
+      transition: transform .25s, box-shadow .25s;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .float-btn:hover {
+      transform: scale(1.1) translateY(-2px);
+      box-shadow: 0 10px 32px rgba(0,0,0,.4);
+    }
+    .float-wa { background: #25D366; }
+    .float-call { background: var(--c-terracota); }
+
+    /* =====================================================
+       ACCESSIBILITY: Reduced Motion
+    ===================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- =====================================================
+     CUSTOM CURSOR
+===================================================== -->
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+<header id="navbar" role="banner">
+  <a href="#" class="nav-logo" aria-label="BRAZZA TACOS & GRILL — inicio">
+    <span class="logo-main">BRAZZA</span>
+    <span class="logo-sub">Tacos &amp; Grill</span>
+  </a>
+
+  <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav aria-label="Navegación principal">
+    <ul id="nav-menu">
+      <li><a href="#presentacion">Nosotros</a></li>
+      <li><a href="#especialidades">Menú</a></li>
+      <li><a href="#resenas">Reseñas</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#ubicacion">Ubicación</a></li>
+      <li><a href="tel:5959557543" class="nav-cta">📞 Llamar</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+<main>
+<section id="hero" aria-label="Bienvenida">
+  <div class="hero-bg" id="hero-bg" role="img" aria-label="Fotografía de tacos y parrillada mexicana"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-line" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge" aria-label="Restaurante en Texcoco">
+      🌮 Texcoco de Mora, Méx.
+    </div>
+
+    <div class="hero-title-wrap">
+      <span class="hero-title"><span class="accent">BRAZZA</span></span>
+    </div>
+    <div class="hero-sub-wrap">
+      <span class="hero-sub">TACOS &amp; GRILL</span>
+    </div>
+
+    <p class="hero-tagline">Sabor auténtico, parrilla encendida y familia reunida</p>
+
+    <div class="hero-stars" aria-label="Calificación 4.6 de 5 estrellas">
+      <span class="star" aria-hidden="true">★★★★★</span>
+      <span class="rating-text">4.6 — Muy bien calificado</span>
+    </div>
+
+    <div class="hero-btns">
+      <a href="#especialidades" class="btn btn-primary">
+        🍖 Ver menú
+      </a>
+      <a href="tel:5959557543" class="btn btn-outline">
+        📞 Llamar ahora
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Descubre más</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- =====================================================
+     MARQUEE
+===================================================== -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track" id="marquee-track"></div>
+</div>
+
+<!-- =====================================================
+     PRESENTACIÓN
+===================================================== -->
+<section id="presentacion" aria-labelledby="presentacion-title">
+  <div class="presentacion-inner">
+    <div class="presentacion-img-wrap reveal-left">
+      <div class="img-placeholder" style="background: linear-gradient(135deg,#8B3A2A 0%, #C0392B 40%, #D4A017 100%);" data-label="Ambiente Brazza Tacos &amp; Grill">
+        🥩
+      </div>
+      <div class="img-badge" aria-label="Más de 10 años de experiencia">
+        <span class="badge-num">4.6</span>
+        <span class="badge-text">Estrellas ★</span>
+      </div>
+    </div>
+
+    <div class="presentacion-texto">
+      <p class="section-label reveal">Quiénes somos</p>
+      <h2 class="section-title reveal delay-1" id="presentacion-title">
+        Un lugar donde la <span class="accent">familia</span> y el sabor se encuentran
+      </h2>
+      <div class="gold-divider reveal delay-2"></div>
+      <p class="section-body reveal delay-2">
+        En <strong>Brazza Tacos &amp; Grill</strong> somos más que un restaurante: somos el lugar donde los sabores auténticos de México cobran vida. Amplio, alegre y lleno de aromas a parrilla, te ofrecemos lo mejor de la cocina tradicional mexicana en un ambiente cálido, perfecto para toda la familia.
+      </p>
+      <p class="section-body reveal delay-3" style="margin-top:1rem;">
+        Desde nuestras carnitas al carbón y parrilladas para compartir, hasta burritos generosos y frijoles charros que reconfortan el alma — cada platillo está preparado con ingredientes frescos y el amor de siempre.
+      </p>
+
+      <div class="features-grid" style="margin-top: 2rem;">
+        <div class="feature-item reveal delay-2">
+          <span class="feature-icon" aria-hidden="true">🔥</span>
+          <span class="feature-text">Parrilla al carbón auténtica</span>
+        </div>
+        <div class="feature-item reveal delay-3">
+          <span class="feature-icon" aria-hidden="true">👨‍👩‍👧‍👦</span>
+          <span class="feature-text">Ambiente 100% familiar</span>
+        </div>
+        <div class="feature-item reveal delay-3">
+          <span class="feature-icon" aria-hidden="true">🍺</span>
+          <span class="feature-text">Micheladas y cervezas frías</span>
+        </div>
+        <div class="feature-item reveal delay-4">
+          <span class="feature-icon" aria-hidden="true">🎵</span>
+          <span class="feature-text">Música en vivo ocasional</span>
+        </div>
+      </div>
+
+      <a href="#especialidades" class="btn btn-primary reveal delay-4" style="margin-top:2.2rem; display:inline-flex;">
+        🍽️ Ver el menú completo
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     ESPECIALIDADES
+===================================================== -->
+<section id="especialidades" aria-labelledby="especialidades-title">
+  <div class="especialidades-header">
+    <div>
+      <p class="section-label reveal">Especialidades</p>
+      <h2 class="section-title reveal delay-1" id="especialidades-title">
+        Nuestros platillos <span style="color:var(--c-gold)">estrella</span>
+      </h2>
+      <p style="color:rgba(245,237,211,.55); font-size:.95rem; max-width:400px;" class="reveal delay-2">
+        Preparados con ingredientes frescos y la receta de siempre. Precio por persona: $200–$300 MXN.
+      </p>
+    </div>
+    <a href="tel:5959557543" class="btn btn-gold reveal">📞 Hacer pedido</a>
+  </div>
+
+  <div class="cards-grid">
+    <!-- Card destacada -->
+    <article class="dish-card card-featured reveal-scale">
+      <div class="dish-img">
+        <div class="dish-img-inner" role="img" aria-label="Parrillada Mixta para 2 personas" style="background: linear-gradient(135deg,#6B1F1F,#C0392B,#D4A017); font-size:5rem;">🥩</div>
+        <span class="dish-tag">⭐ Especialidad</span>
+      </div>
+      <div class="dish-info">
+        <p class="section-label" style="color:var(--c-gold);">Para compartir</p>
+        <h3 class="dish-name">Parrillada Mixta<br>para 2 Personas</h3>
+        <p class="dish-desc">
+          La reina de nuestra mesa. Cortes selectos al carbón, chorizos criollos, costilla y pollo marinado — todo acompañado de tortillas hechas a mano, frijoles charros y nuestras salsas de la casa.
+        </p>
+        <div class="dish-price">
+          Desde $500
+          <span class="price-note">/ para 2 personas</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Tacos -->
+    <article class="dish-card reveal">
+      <div class="dish-img">
+        <div class="dish-img-inner" role="img" aria-label="Tacos" style="background: linear-gradient(135deg,#C0392B,#8B1A1A);">🌮</div>
+        <span class="dish-tag">Clásico</span>
+      </div>
+      <div class="dish-info">
+        <h3 class="dish-name">Tacos de la Casa</h3>
+        <p class="dish-desc">Tortillas de maíz recién hechas con tu relleno favorito: campechano, suadero, al pastor o bistec. Con cilantro, cebolla y nuestras salsas artesanales.</p>
+        <div class="dish-price">Desde $45 <span class="price-note">/ pieza</span></div>
+      </div>
+    </article>
+
+    <!-- Burritos -->
+    <article class="dish-card reveal delay-1">
+      <div class="dish-img">
+        <div class="dish-img-inner" role="img" aria-label="Burritos" style="background: linear-gradient(135deg,#D4A017,#8B6A0A);">🌯</div>
+        <span class="dish-tag">Generoso</span>
+      </div>
+      <div class="dish-info">
+        <h3 class="dish-name">Burritos Brazza</h3>
+        <p class="dish-desc">Envueltos generosos con arroz, frijoles, queso y la proteína de tu elección. Grillados al momento y servidos con pico de gallo y crema.</p>
+        <div class="dish-price">Desde $110 <span class="price-note">/ pieza</span></div>
+      </div>
+    </article>
+
+    <!-- Frijoles Charros -->
+    <article class="dish-card reveal delay-2">
+      <div class="dish-img">
+        <div class="dish-img-inner" role="img" aria-label="Frijoles Charros" style="background: linear-gradient(135deg,#4A2010,#8B3A1A);">🫘</div>
+        <span class="dish-tag">Tradicional</span>
+      </div>
+      <div class="dish-info">
+        <h3 class="dish-name">Frijoles Charros</h3>
+        <p class="dish-desc">El complemento perfecto. Frijoles de olla con tocino, chorizo, chile y cilantro — cocinados a fuego lento con todo el sabor del campo mexicano.</p>
+        <div class="dish-price">Desde $70 <span class="price-note">/ orden</span></div>
+      </div>
+    </article>
+
+    <!-- Tuétano -->
+    <article class="dish-card reveal delay-1">
+      <div class="dish-img">
+        <div class="dish-img-inner" role="img" aria-label="Tuétano al carbón" style="background: linear-gradient(135deg,#2C1A0A,#6B3A1A);">🦴</div>
+        <span class="dish-tag">Exclusivo</span>
+      </div>
+      <div class="dish-info">
+        <h3 class="dish-name">Tuétano al Carbón</h3>
+        <p class="dish-desc">Huesos de res al carbón, directos del fuego a tu mesa. Suaves, mantequillosos y llenos de sabor. Servidos con cebolla asada y tortillas calientes.</p>
+        <div class="dish-price">Desde $130 <span class="price-note">/ orden</span></div>
+      </div>
+    </article>
+
+    <!-- Micheladas -->
+    <article class="dish-card reveal delay-2">
+      <div class="dish-img">
+        <div class="dish-img-inner" role="img" aria-label="Micheladas" style="background: linear-gradient(135deg,#1A3A2A,#2C5940);">🍺</div>
+        <span class="dish-tag">Bebidas</span>
+      </div>
+      <div class="dish-info">
+        <h3 class="dish-name">Micheladas</h3>
+        <p class="dish-desc">La bebida perfecta para acompañar tu parrillada. Preparadas con clamato, limón, chamoy y la cerveza de tu preferencia. Refrescantes y con mucho sabor.</p>
+        <div class="dish-price">Desde $80 <span class="price-note">/ vaso</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- =====================================================
+     RESEÑAS
+===================================================== -->
+<section id="resenas" aria-labelledby="resenas-title">
+  <div class="resenas-header">
+    <p class="section-label reveal">Lo que dicen nuestros clientes</p>
+    <h2 class="section-title reveal delay-1" id="resenas-title">
+      Opiniones <span class="accent">reales</span>, sabores que se recuerdan
+    </h2>
+    <p class="section-body reveal delay-2" style="margin: 0 auto;">
+      Más de cientos de familias y grupos de amigos han vivido la experiencia Brazza. Aquí lo que nos comparten.
+    </p>
+  </div>
+
+  <div class="testimonials-grid">
+    <article class="testimonial-card reveal">
+      <span class="testimonial-quote" aria-hidden="true">"</span>
+      <div class="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
+      <p class="testimonial-text">
+        Llegamos en familia un domingo y la parrillada para dos fue increíble. Las porciones son muy generosas y el sabor al carbón es auténtico. Definitivamente volvemos pronto.
+      </p>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background:#FFF3E0;" aria-hidden="true">👩</div>
+        <div>
+          <div class="author-name">Gabriela M.</div>
+          <div class="author-meta">Visita familiar · Texcoco</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="testimonial-card reveal delay-1">
+      <span class="testimonial-quote" aria-hidden="true">"</span>
+      <div class="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
+      <p class="testimonial-text">
+        El lugar es muy amplio y agradable. Vinimos con un grupo de 10 personas y nos atendieron de maravilla. Los frijoles charros y el tuétano son lo mejor del menú, sin duda.
+      </p>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background:#E8F5E9;" aria-hidden="true">👨</div>
+        <div>
+          <div class="author-name">Roberto S.</div>
+          <div class="author-meta">Reunión de amigos · Ecatepec</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="testimonial-card reveal delay-2">
+      <span class="testimonial-quote" aria-hidden="true">"</span>
+      <div class="testimonial-stars" aria-label="4 estrellas">★★★★☆</div>
+      <p class="testimonial-text">
+        Muy buena comida y atención rápida. Los niños se divirtieron mucho en el área de juegos mientras esperábamos. El precio es muy justo para todo lo que recibes.
+      </p>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background:#FFF9C4;" aria-hidden="true">👩‍👧</div>
+        <div>
+          <div class="author-name">Marisol F.</div>
+          <div class="author-meta">Salida familiar · Texcoco</div>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- Rating banner -->
+  <div class="rating-banner reveal">
+    <div class="rating-big">
+      <div class="rating-num" aria-label="Calificación 4.6">4.6</div>
+      <div>
+        <div class="rating-stars-big" aria-hidden="true">★★★★½</div>
+        <div class="rating-label">Calificación general</div>
+      </div>
+    </div>
+    <div class="rating-banner-cta">
+      <p class="section-title" style="color:var(--c-cream); font-size:1.4rem; font-family:var(--ff-heading);">
+        ¿Ya nos visitaste?
+      </p>
+      <p>Comparte tu experiencia y ayuda a más familias a descubrirnos.</p>
+    </div>
+    <a href="tel:5959557543" class="btn btn-gold">Reservar mesa 📞</a>
+  </div>
+</section>
+
+<!-- =====================================================
+     SERVICIOS
+===================================================== -->
+<section id="servicios" aria-labelledby="servicios-title">
+  <div class="servicios-inner">
+    <div class="servicios-header">
+      <p class="section-label reveal">Lo que ofrecemos</p>
+      <h2 class="section-title reveal delay-1" id="servicios-title">
+        Todo lo que necesitas para disfrutar
+      </h2>
+      <div class="gold-divider reveal delay-2"></div>
+      <p class="section-body reveal delay-2">
+        Pensamos en cada detalle para que tu visita sea perfecta. Desde la llegada hasta que te vayas con el sabor en la memoria.
+      </p>
+      <a href="#ubicacion" class="btn btn-gold reveal delay-3" style="margin-top:1.8rem; display:inline-flex;">
+        📍 Ver cómo llegar
+      </a>
+    </div>
+
+    <div class="servicios-grid">
+      <div class="servicio-item reveal">
+        <span class="servicio-icon" aria-hidden="true">🍽️</span>
+        <div class="servicio-name">Comer en el lugar</div>
+        <div class="servicio-desc">Mesas amplias para familias y grupos grandes</div>
+      </div>
+      <div class="servicio-item reveal delay-1">
+        <span class="servicio-icon" aria-hidden="true">📦</span>
+        <div class="servicio-name">Para llevar</div>
+        <div class="servicio-desc">Tu orden lista para disfrutar donde quieras</div>
+      </div>
+      <div class="servicio-item reveal delay-1">
+        <span class="servicio-icon" aria-hidden="true">🛵</span>
+        <div class="servicio-name">Entrega a domicilio</div>
+        <div class="servicio-desc">Llevamos el sabor directo a tu puerta</div>
+      </div>
+      <div class="servicio-item reveal delay-2">
+        <span class="servicio-icon" aria-hidden="true">🚗</span>
+        <div class="servicio-name">Estacionamiento</div>
+        <div class="servicio-desc">Amplio espacio para tu vehículo</div>
+      </div>
+      <div class="servicio-item reveal delay-2">
+        <span class="servicio-icon" aria-hidden="true">🎠</span>
+        <div class="servicio-name">Área de juegos</div>
+        <div class="servicio-desc">Los más pequeños también se divierten</div>
+      </div>
+      <div class="servicio-item reveal delay-3">
+        <span class="servicio-icon" aria-hidden="true">🎵</span>
+        <div class="servicio-name">Música en vivo</div>
+        <div class="servicio-desc">Ocasionalmente ambientamos tu tarde</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     UBICACIÓN
+===================================================== -->
+<section id="ubicacion" aria-labelledby="ubicacion-title">
+  <div class="ubicacion-inner">
+    <div class="ubicacion-header">
+      <p class="section-label reveal">Visítanos</p>
+      <h2 class="section-title reveal delay-1" id="ubicacion-title">
+        ¿Cómo <span style="color:var(--c-gold)">llegar?</span>
+      </h2>
+      <div class="gold-divider reveal delay-2"></div>
+
+      <ul class="contact-list">
+        <li class="reveal delay-1">
+          <div class="contact-icon" aria-hidden="true">📍</div>
+          <div>
+            <span class="contact-label">Dirección</span>
+            Anexo "A", Esquina Teneria, Calle Francisco Sarabia,<br>
+            La Trinidad, 56130 Texcoco de Mora, Méx.
+          </div>
+        </li>
+        <li class="reveal delay-2">
+          <div class="contact-icon" aria-hidden="true">📞</div>
+          <div>
+            <span class="contact-label">Teléfono</span>
+            <a href="tel:5959557543" style="color:var(--c-gold-lt); font-weight:700;">595 955 7543</a>
+          </div>
+        </li>
+        <li class="reveal delay-3">
+          <div class="contact-icon" aria-hidden="true">🕙</div>
+          <div>
+            <span class="contact-label">Horario</span>
+            Abierto todos los días — Cierra a las 11:00 p.m.
+          </div>
+        </li>
+        <li class="reveal delay-4">
+          <div class="contact-icon" aria-hidden="true">💰</div>
+          <div>
+            <span class="contact-label">Precio promedio</span>
+            $200 – $300 MXN por persona
+          </div>
+        </li>
+      </ul>
+
+      <div class="contact-btns reveal delay-4">
+        <a href="https://maps.google.com/?q=Calle+Francisco+Sarabia+La+Trinidad+Texcoco+de+Mora+Mexico" target="_blank" rel="noopener noreferrer" class="btn btn-gold">
+          🗺️ Abrir en Maps
+        </a>
+        <a href="tel:5959557543" class="btn btn-outline" style="border-color:rgba(212,160,23,.4); color:var(--c-cream);">
+          📞 Llamar
+        </a>
+      </div>
+    </div>
+
+    <div class="map-wrap reveal-right">
+      <div class="map-placeholder" role="img" aria-label="Mapa de ubicación de Brazza Tacos y Grill">
+        <div class="map-pin" aria-hidden="true">📍</div>
+        <div class="map-label-text">
+          Texcoco de Mora, México<br>
+          <small style="font-size:.8rem; opacity:.6;">Calle Francisco Sarabia, La Trinidad</small>
+        </div>
+        <a href="https://maps.google.com/?q=Calle+Francisco+Sarabia+La+Trinidad+Texcoco+de+Mora+Mexico" target="_blank" rel="noopener noreferrer" class="btn btn-gold map-open-btn">
+          Ver en Google Maps →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     CTA FINAL
+===================================================== -->
+<section id="cta-final" aria-labelledby="cta-title">
+  <div class="cta-bg" id="cta-bg" aria-hidden="true"></div>
+  <div class="cta-overlay" aria-hidden="true"></div>
+  <div class="cta-content">
+    <p class="section-label reveal">¿Listo para comer?</p>
+    <h2 class="section-title reveal delay-1" id="cta-title">
+      La mesa está puesta.<br>Solo falta <span class="gold">tu familia.</span>
+    </h2>
+    <p class="reveal delay-2">
+      Ven a disfrutar una tarde de buena comida, risas y los mejores sabores de México. Abierto todos los días hasta las 11 p.m. Te esperamos con los brazos abiertos y la parrilla encendida.
+    </p>
+    <div class="cta-btns">
+      <a href="tel:5959557543" class="btn btn-primary reveal delay-2">
+        📞 Llamar para reservar
+      </a>
+      <a href="https://wa.me/525959557543?text=Hola%2C%20me%20gustar%C3%ADa%20hacer%20una%20reservaci%C3%B3n%20en%20Brazza%20Tacos%20%26%20Grill" target="_blank" rel="noopener noreferrer" class="btn btn-outline reveal delay-3">
+        💬 WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <span class="logo-main">BRAZZA</span>
+      <span class="logo-sub">Tacos &amp; Grill — Texcoco de Mora</span>
+      <p class="footer-desc">
+        Restaurante familiar con lo mejor de la parrilla mexicana. Tacos, burritos, cortes al carbón y bebidas frías en un ambiente alegre y acogedor.
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>Menú</h4>
+      <ul>
+        <li>Parrillada Mixta</li>
+        <li>Tacos de la Casa</li>
+        <li>Burritos Brazza</li>
+        <li>Frijoles Charros</li>
+        <li>Tuétano al Carbón</li>
+        <li>Micheladas</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="tel:5959557543">595 955 7543</a></li>
+        <li>Cierra a las 11:00 p.m.</li>
+        <li>Texcoco de Mora, Méx.</li>
+        <li><a href="https://maps.google.com/?q=Calle+Francisco+Sarabia+La+Trinidad+Texcoco" target="_blank" rel="noopener noreferrer">Ver en Maps</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Brazza Tacos &amp; Grill — Todos los derechos reservados</span>
+    <span class="footer-stars" aria-label="4.6 estrellas">★★★★½ 4.6</span>
+  </div>
+</footer>
+
+<!-- =====================================================
+     FLOATING BUTTONS
+===================================================== -->
+<div class="float-btns" aria-label="Contacto rápido">
+  <a href="https://wa.me/525959557543?text=Hola%2C%20me%20gustar%C3%ADa%20m%C3%A1s%20informaci%C3%B3n%20sobre%20Brazza%20Tacos%20%26%20Grill"
+     target="_blank" rel="noopener noreferrer"
+     class="float-btn float-wa"
+     aria-label="Contactar por WhatsApp">💬</a>
+  <a href="tel:5959557543"
+     class="float-btn float-call"
+     aria-label="Llamar a Brazza Tacos y Grill">📞</a>
+</div>
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+<script>
+  /* --- Reduced motion check --- */
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* =====================================================
+     CUSTOM CURSOR
+  ===================================================== */
+  if (!prefersReduced && window.innerWidth > 768) {
+    const dot  = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px';
+      dot.style.top  = my + 'px';
+    });
+
+    function animateCursor() {
+      rx += (mx - rx) * 0.11;
+      ry += (my - ry) * 0.11;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    document.querySelectorAll('a, button, .dish-card, .feature-item, .servicio-item, .testimonial-card').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+  }
+
+  /* =====================================================
+     NAVBAR — scroll state
+  ===================================================== */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* =====================================================
+     MOBILE NAV TOGGLE
+  ===================================================== */
+  const navToggle = document.getElementById('nav-toggle');
+  const navMenu   = document.getElementById('nav-menu');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = navMenu.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* =====================================================
+     HERO PARALLAX
+  ===================================================== */
+  const heroBg = document.getElementById('hero-bg');
+  const ctaBg  = document.getElementById('cta-bg');
+
+  function handleParallax() {
+    if (prefersReduced) return;
+    const sy = window.scrollY;
+    if (heroBg) heroBg.style.transform = `translateY(${sy * 0.35}px)`;
+
+    if (ctaBg) {
+      const rect = ctaBg.parentElement.getBoundingClientRect();
+      ctaBg.style.transform = `translateY(${-rect.top * 0.3}px)`;
+    }
+  }
+  window.addEventListener('scroll', handleParallax, { passive: true });
+
+  /* =====================================================
+     SCROLL REVEAL — IntersectionObserver
+  ===================================================== */
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  revealEls.forEach(el => observer.observe(el));
+
+  /* =====================================================
+     MARQUEE — build dynamically
+  ===================================================== */
+  const marqueeWords = [
+    '🌮 Tacos Artesanales',
+    '🥩 Parrilla al Carbón',
+    '🌯 Burritos',
+    '🫘 Frijoles Charros',
+    '🦴 Tuétano',
+    '🍺 Micheladas',
+    '👨‍👩‍👧 Ambiente Familiar',
+    '🎵 Música en Vivo',
+    '📍 Texcoco de Mora'
+  ];
+
+  const track = document.getElementById('marquee-track');
+  [...marqueeWords, ...marqueeWords].forEach(w => {
+    const el = document.createElement('span');
+    el.className = 'marquee-item';
+    el.innerHTML = w + ' <span class="marquee-dot">✦</span>';
+    track.appendChild(el);
+  });
+
+  /* =====================================================
+     SMOOTH ANCHOR SCROLL (offset for fixed nav)
+  ===================================================== */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+
+  /* =====================================================
+     ACTIVE NAV LINK (scroll spy)
+  ===================================================== */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks  = document.querySelectorAll('nav ul a');
+
+  const spyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.style.opacity = '');
+        const activeLink = document.querySelector(`nav ul a[href="#${entry.target.id}"]`);
+        if (activeLink) {
+          activeLink.style.opacity = '1';
+          activeLink.style.color = 'var(--c-gold)';
+        }
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => spyObserver.observe(s));
+</script>
+</body>
+</html>

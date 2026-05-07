@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Taquería Habanna's – Auténtico Sabor Mexicano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style>
+/* ════════════════════════════════════════════
+   VARIABLES
+════════════════════════════════════════════ */
+:root {
+  /* Café claro y cálido */
+  --c1: #F5EAD8;   /* crema cálida – fondo principal */
+  --c2: #EDD9B8;   /* café claro */
+  --c3: #D4B896;   /* arena dorada */
+  --c4: #8B5E3C;   /* café medio – textos */
+  --c5: #5C3317;   /* café oscuro – acentos fuertes */
+  --c6: #3A1F0A;   /* café profundo */
+
+  --verde:  #4A856A;   /* verde suave */
+  --verd2:  #6BAE8E;   /* verde claro hover */
+  --gold:   #B8892A;
+  --gold2:  #D4A843;
+
+  --blanco: #FDFAF5;
+  --sombra: rgba(92,51,23,.12);
+
+  --r: 18px;
+  --t: .35s cubic-bezier(.4,0,.2,1);
+}
+
+/* ════════════════════════════════════════════
+   RESET & BASE
+════════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--c1);
+  color:var(--c5);
+  overflow-x:hidden;
+  line-height:1.6;
+}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%;object-fit:cover}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+/* ════════════════════════════════════════════
+   KEYFRAMES
+════════════════════════════════════════════ */
+@keyframes fadeUp    {from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn    {from{opacity:0}to{opacity:1}}
+@keyframes scaleIn   {from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+@keyframes slideLeft {from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideRight{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
+@keyframes float     {0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes rotateIn  {from{opacity:0;transform:rotate(-5deg) scale(.92)}to{opacity:1;transform:rotate(0) scale(1)}}
+@keyframes pulse     {0%,100%{box-shadow:0 0 0 0 rgba(74,133,106,.45)}50%{box-shadow:0 0 0 14px rgba(74,133,106,0)}}
+@keyframes shimmer   {0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes flicker   {0%,100%{opacity:1}47%{opacity:.8}52%{opacity:.6}57%{opacity:.95}}
+@keyframes carSlide  {0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes bounce    {0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+@keyframes glowPulse {0%,100%{text-shadow:0 0 0 transparent}50%{text-shadow:0 0 18px rgba(74,133,106,.35)}}
+@keyframes revealBar {from{width:0}to{width:60px}}
+@keyframes spinHalf  {from{transform:rotate(0)}to{transform:rotate(180deg)}}
+
+/* ════════════════════════════════════════════
+   SCROLL REVEAL (JS-free via animation-play-state)
+════════════════════════════════════════════ */
+.reveal{opacity:0;animation-fill-mode:both;animation-duration:.75s;animation-timing-function:cubic-bezier(.4,0,.2,1)}
+.reveal.active{animation-name:fadeUp}
+.reveal-left.active{animation-name:slideRight}
+.reveal-right.active{animation-name:slideLeft}
+.reveal-scale.active{animation-name:scaleIn}
+.reveal-rotate.active{animation-name:rotateIn}
+.d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}
+.d4{animation-delay:.35s}.d5{animation-delay:.45s}.d6{animation-delay:.55s}
+
+/* ════════════════════════════════════════════
+   SECTION DIVIDERS (blur-fade entre secciones)
+════════════════════════════════════════════ */
+.sec-divider{
+  position:relative;
+  height:80px;
+  pointer-events:none;
+  z-index:10;
+}
+.sec-divider::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:inherit;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  mask-image:linear-gradient(to bottom,transparent 0%,white 40%,white 60%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,white 40%,white 60%,transparent 100%);
+}
+/* Gradiente de fusión entre cada sección */
+.fade-down{
+  position:relative;
+  z-index:5;
+}
+.fade-down::after{
+  content:'';
+  position:absolute;
+  bottom:-60px;
+  left:0;right:0;
+  height:120px;
+  background:linear-gradient(to bottom,var(--from-color,var(--c1)) 0%,var(--to-color,var(--c2)) 100%);
+  z-index:4;
+  pointer-events:none;
+}
+
+/* ════════════════════════════════════════════
+   HEADER – CENTRADO
+════════════════════════════════════════════ */
+header{
+  position:fixed;top:0;left:0;width:100%;z-index:1000;
+  padding:0 clamp(1rem,4vw,3rem);
+  height:70px;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  background:rgba(245,234,216,.88);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(184,137,42,.2);
+  transition:background var(--t);
+}
+.header-left{display:flex;align-items:center;gap:1.5rem}
+.header-center{
+  display:flex;align-items:center;gap:.5rem;
+  justify-content:center;
+  text-decoration:none;
+}
+.header-right{display:flex;align-items:center;gap:1.5rem;justify-content:flex-end}
+
+.logo-icon-hdr{font-size:1.6rem;animation:float 3s ease-in-out infinite}
+.logo-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;font-weight:700;
+  color:var(--c6);letter-spacing:.04em;
+  white-space:nowrap;
+}
+.logo-name em{color:var(--verde);font-style:normal}
+
+nav.hdr-nav{display:flex;gap:1.8rem;align-items:center}
+nav.hdr-nav a{
+  font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--c4);position:relative;padding-bottom:2px;
+  transition:color var(--t);
+}
+nav.hdr-nav a::after{
+  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:0;height:1.5px;background:var(--verde);
+  transition:width var(--t);
+}
+nav.hdr-nav a:hover{color:var(--verde)}
+nav.hdr-nav a:hover::after{width:100%}
+.hdr-cta{
+  background:var(--c5);color:var(--blanco) !important;
+  padding:.42rem 1.2rem;border-radius:50px;
+  font-size:.78rem !important;font-weight:600 !important;
+  transition:background var(--t),transform .2s !important;
+  white-space:nowrap;
+}
+.hdr-cta:hover{background:var(--verde);transform:scale(1.04) !important}
+.hdr-cta::after{display:none !important}
+
+/* Hamburger */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;cursor:pointer;
+  width:28px;padding:4px 0;
+}
+.hamburger span{display:block;height:2px;background:var(--c5);border-radius:2px;transition:var(--t)}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* Mobile menu */
+.mobile-menu{
+  position:fixed;top:70px;left:0;width:100%;
+  background:rgba(245,234,216,.97);
+  backdrop-filter:blur(20px);
+  padding:1.5rem 2rem 2rem;
+  display:none;flex-direction:column;gap:1.2rem;
+  z-index:999;border-bottom:1px solid rgba(184,137,42,.2);
+  box-shadow:0 8px 32px var(--sombra);
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  font-size:1.05rem;font-weight:500;color:var(--c5);
+  padding:.6rem 0;border-bottom:1px solid rgba(92,51,23,.1);
+  transition:color var(--t),padding-left var(--t);
+}
+.mobile-menu a:hover{color:var(--verde);padding-left:.5rem}
+.mobile-menu .hdr-cta{
+  text-align:center;padding:.75rem;margin-top:.5rem;
+  font-size:.95rem !important;
+}
+
+/* ════════════════════════════════════════════
+   HERO
+════════════════════════════════════════════ */
+#hero{
+  min-height:100svh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  padding:calc(70px + 3rem) clamp(1.5rem,6vw,4rem) 5rem;
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse 80% 65% at 50% 30%, rgba(74,133,106,.08) 0%,transparent 70%),
+    radial-gradient(ellipse 60% 80% at 85% 85%, rgba(184,137,42,.08) 0%,transparent 65%),
+    linear-gradient(165deg, #F5EAD8 0%, #EDD9B8 55%, #E5CC9F 100%);
+}
+/* Grain overlay */
+#hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.6;
+}
+/* Decorative blobs */
+.hero-blob{
+  position:absolute;border-radius:50%;pointer-events:none;z-index:0;
+  filter:blur(60px);opacity:.35;
+}
+.hero-blob-1{width:380px;height:380px;background:rgba(74,133,106,.22);top:-8%;left:-12%;animation:float 8s ease-in-out infinite}
+.hero-blob-2{width:300px;height:300px;background:rgba(184,137,42,.2);bottom:-5%;right:-8%;animation:float 10s ease-in-out 1.5s infinite}
+.hero-blob-3{width:200px;height:200px;background:rgba(212,184,150,.4);top:40%;right:10%;animation:float 7s ease-in-out 3s infinite}
+
+.hero-content{position:relative;z-index:2;max-width:820px;margin:0 auto}
+.hero-chip{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(74,133,106,.12);
+  border:1px solid rgba(74,133,106,.3);
+  color:var(--verde);
+  padding:.35rem 1.1rem;border-radius:50px;
+  font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  margin-bottom:1.8rem;
+  animation:fadeIn .8s .1s both;
+}
+.hero-chip span{animation:float 2.8s ease-in-out infinite}
+
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3.5rem,9vw,7.5rem);
+  font-weight:700;line-height:.95;letter-spacing:-.02em;
+  color:var(--c6);
+  margin-bottom:1.2rem;
+  animation:fadeUp .9s .3s both;
+}
+.hero-title .line2{
+  display:block;
+  color:var(--verde);
+  font-style:italic;
+  animation:glowPulse 4s ease-in-out infinite;
+}
+.hero-title .apostrophe{color:var(--gold)}
+
+.hero-sub{
+  font-size:clamp(1rem,2vw,1.15rem);
+  color:var(--c4);font-weight:300;letter-spacing:.02em;
+  max-width:480px;margin:0 auto 2.8rem;line-height:1.8;
+  animation:fadeUp 1s .5s both;
+}
+
+.hero-btns{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp 1s .7s both;
+}
+.btn-solid{
+  background:var(--c5);color:var(--blanco);
+  padding:.9rem 2.6rem;border-radius:50px;
+  font-size:.95rem;font-weight:600;letter-spacing:.04em;
+  transition:background var(--t),transform .2s,box-shadow .2s;
+  animation:pulse 2.8s ease-in-out infinite;
+  display:inline-flex;align-items:center;gap:.5rem;
+}
+.btn-solid:hover{background:var(--verde);transform:translateY(-3px);animation:none;box-shadow:0 8px 24px rgba(74,133,106,.35)}
+.btn-ghost{
+  background:transparent;
+  border:1.5px solid var(--c4);
+  color:var(--c5);
+  padding:.9rem 2.4rem;border-radius:50px;
+  font-size:.95rem;font-weight:600;letter-spacing:.04em;
+  display:inline-flex;align-items:center;gap:.5rem;
+  transition:border-color var(--t),color var(--t),transform .2s;
+}
+.btn-ghost:hover{border-color:var(--verde);color:var(--verde);transform:translateY(-3px)}
+
+.hero-floating-icons{
+  display:flex;gap:3rem;justify-content:center;margin-top:3.5rem;
+  animation:fadeIn 1s 1s both;
+}
+.hero-fi{font-size:2rem;animation:float 3.5s ease-in-out infinite}
+.hero-fi:nth-child(2){animation-delay:.6s}
+.hero-fi:nth-child(3){animation-delay:1.2s}
+
+.hero-scroll{
+  position:absolute;bottom:2rem;left:50%;
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;
+  animation:fadeIn 1.5s 1.5s both;
+  color:var(--c4);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+}
+.hero-scroll-arrow{font-size:1.1rem;animation:bounce 1.5s ease-in-out infinite}
+
+/* ════════════════════════════════════════════
+   SECCIÓN DIVISOR VISUAL (blur fade)
+════════════════════════════════════════════ */
+.section-blur-divider{
+  position:relative;
+  height:90px;
+  overflow:hidden;
+  pointer-events:none;
+}
+.section-blur-divider::before{
+  content:'';
+  position:absolute;inset:0;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.9) 35%,rgba(0,0,0,.9) 65%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.9) 35%,rgba(0,0,0,.9) 65%,transparent 100%);
+}
+.section-blur-divider::after{
+  content:'✦';
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  color:var(--gold);font-size:1rem;
+  opacity:.6;letter-spacing:.3rem;
+}
+
+/* ════════════════════════════════════════════
+   INFO BAR
+════════════════════════════════════════════ */
+#info-bar{
+  background:var(--c2);
+  padding:2.8rem clamp(1.5rem,5vw,3rem);
+  border-top:1px solid rgba(184,137,42,.18);
+  border-bottom:1px solid rgba(184,137,42,.18);
+}
+.info-wrap{max-width:1140px;margin:0 auto}
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:1rem;
+}
+.info-card{
+  background:rgba(255,255,255,.55);
+  border:1px solid rgba(184,137,42,.2);
+  border-radius:var(--r);
+  padding:1.1rem 1.2rem;
+  display:flex;align-items:center;gap:.85rem;
+  transition:transform var(--t),background var(--t),box-shadow var(--t);
+  cursor:default;
+  backdrop-filter:blur(8px);
+}
+.info-card:hover{
+  transform:translateY(-5px);
+  background:rgba(255,255,255,.82);
+  box-shadow:0 10px 28px var(--sombra);
+}
+.info-card-icon{font-size:1.5rem;flex-shrink:0}
+.info-card-label{font-size:.65rem;color:var(--c4);letter-spacing:.06em;text-transform:uppercase}
+.info-card-val{font-size:.9rem;font-weight:600;color:var(--c5)}
+.info-card-val.gold{color:var(--gold)}
+.info-card-val.green{color:var(--verde)}
+
+/* ════════════════════════════════════════════
+   GALERÍA – CARRUSEL CENTRADO + ANIMADO
+════════════════════════════════════════════ */
+#galeria{
+  background:var(--c1);
+  padding:5.5rem clamp(1.5rem,5vw,3rem) 4rem;
+  text-align:center;
+  overflow:hidden;
+}
+.galeria-header{margin-bottom:2.8rem}
+
+/* Carrusel infinito */
+.carousel-track-wrapper{
+  position:relative;width:100%;overflow:hidden;
+  margin:0 auto 2rem;
+}
+/* Fade masks on edges */
+.carousel-track-wrapper::before,
+.carousel-track-wrapper::after{
+  content:'';
+  position:absolute;top:0;bottom:0;width:120px;
+  z-index:3;pointer-events:none;
+}
+.carousel-track-wrapper::before{
+  left:0;
+  background:linear-gradient(to right,var(--c1) 0%,transparent 100%);
+}
+.carousel-track-wrapper::after{
+  right:0;
+  background:linear-gradient(to left,var(--c1) 0%,transparent 100%);
+}
+
+.carousel-track{
+  display:flex;gap:18px;
+  width:max-content;
+  animation:carSlide 28s linear infinite;
+  will-change:transform;
+}
+.carousel-track:hover{animation-play-state:paused}
+
+.car-slide{
+  width:clamp(240px,28vw,340px);
+  height:clamp(200px,25vw,280px);
+  border-radius:var(--r);
+  overflow:hidden;
+  position:relative;
+  flex-shrink:0;
+  box-shadow:0 6px 24px var(--sombra);
+  border:2px solid rgba(184,137,42,.15);
+  transition:transform .4s ease,box-shadow .4s ease;
+}
+.car-slide:hover{transform:scale(1.04) translateY(-5px);box-shadow:0 16px 40px rgba(92,51,23,.22)}
+.car-slide img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .55s ease,filter .55s ease;
+  filter:saturate(1.05) brightness(.93);
+}
+.car-slide:hover img{transform:scale(1.1);filter:saturate(1.2) brightness(1)}
+.car-slide-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(58,31,10,.8) 0%,transparent 55%);
+  opacity:0;transition:opacity .4s;
+  display:flex;align-items:flex-end;padding:1.1rem;
+}
+.car-slide:hover .car-slide-overlay{opacity:1}
+.car-slide-label{
+  color:#fff;font-size:.85rem;font-weight:600;
+  transform:translateY(8px);transition:transform .4s;
+  text-shadow:0 1px 5px rgba(0,0,0,.5);
+}
+.car-slide:hover .car-slide-label{transform:translateY(0)}
+
+/* Grid estático debajo del carrusel para pantallas grandes */
+.galeria-grid-static{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  max-width:1000px;margin:2rem auto 0;
+}
+.g-foto{
+  border-radius:var(--r);overflow:hidden;position:relative;
+  aspect-ratio:4/3;
+  box-shadow:0 4px 16px var(--sombra);
+  border:2px solid rgba(184,137,42,.15);
+  transition:transform var(--t),box-shadow var(--t);
+}
+.g-foto:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 12px 32px rgba(92,51,23,.2)}
+.g-foto img{width:100%;height:100%;object-fit:cover;transition:transform .5s,filter .5s;filter:brightness(.9) saturate(1.1)}
+.g-foto:hover img{transform:scale(1.08);filter:brightness(1) saturate(1.25)}
+.g-foto-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(58,31,10,.75) 0%,transparent 55%);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:1rem}
+.g-foto:hover .g-foto-ov{opacity:1}
+.g-foto-lbl{color:#fff;font-size:.82rem;font-weight:600;transform:translateY(6px);transition:transform .35s}
+.g-foto:hover .g-foto-lbl{transform:translateY(0)}
+
+/* ════════════════════════════════════════════
+   ESPECIALIDADES
+════════════════════════════════════════════ */
+#especialidades{
+  background:
+    linear-gradient(180deg,var(--c2) 0%,var(--c1) 100%);
+  padding:5.5rem clamp(1.5rem,5vw,3rem) 5rem;
+  text-align:center;
+}
+.cards-wrap{max-width:1140px;margin:3rem auto 0}
+.cards-row{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1.4rem;
+}
+.taco-card{
+  background:rgba(255,255,255,.65);
+  border:1px solid rgba(184,137,42,.2);
+  border-radius:20px;padding:2rem 1.4rem;
+  text-align:center;position:relative;overflow:hidden;
+  cursor:default;
+  backdrop-filter:blur(10px);
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1),box-shadow .4s,border-color .4s,background .4s;
+}
+.taco-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(74,133,106,.1) 0%,transparent 60%);
+  opacity:0;transition:opacity .4s;
+}
+.taco-card:hover{
+  transform:translateY(-12px) scale(1.02);
+  box-shadow:0 24px 48px rgba(92,51,23,.18);
+  border-color:rgba(74,133,106,.35);
+  background:rgba(255,255,255,.9);
+}
+.taco-card:hover::before{opacity:1}
+.card-emoji-big{font-size:2.8rem;margin-bottom:.9rem;display:block;animation:float 4s ease-in-out infinite}
+.taco-card:nth-child(2) .card-emoji-big{animation-delay:.5s}
+.taco-card:nth-child(3) .card-emoji-big{animation-delay:1s}
+.taco-card:nth-child(4) .card-emoji-big{animation-delay:1.5s}
+.taco-card:nth-child(5) .card-emoji-big{animation-delay:2s}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--c5);margin-bottom:.4rem}
+.card-body{font-size:.82rem;color:var(--c4);line-height:1.65;font-weight:300}
+.card-pill{
+  display:inline-block;margin-top:.9rem;
+  background:rgba(74,133,106,.12);color:var(--verde);
+  padding:.22rem .8rem;border-radius:50px;font-size:.68rem;font-weight:600;letter-spacing:.05em;
+}
+.card-pill.hot{background:rgba(184,137,42,.15);color:var(--gold)}
+/* shimmer */
+.card-shimmer{position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);transition:none}
+.taco-card:hover .card-shimmer{left:150%;transition:left .7s ease}
+
+/* ════════════════════════════════════════════
+   OPINIONES
+════════════════════════════════════════════ */
+#opiniones{
+  background:var(--c3);
+  padding:5.5rem clamp(1.5rem,5vw,3rem);
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+#opiniones::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 55% at 50% 0%,rgba(74,133,106,.1) 0%,transparent 65%);
+}
+.reviews-wrap{max-width:1000px;margin:3rem auto 0;position:relative;z-index:1}
+.reviews-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.4rem}
+.rev-card{
+  background:rgba(255,255,255,.6);
+  border:1px solid rgba(255,255,255,.8);
+  border-radius:20px;padding:2rem;text-align:left;
+  backdrop-filter:blur(16px);
+  transition:transform .35s,box-shadow .35s;
+  position:relative;overflow:hidden;
+}
+.rev-card::before{content:'❝';position:absolute;top:.5rem;right:1.2rem;font-size:5rem;color:rgba(74,133,106,.08);font-family:serif;line-height:1}
+.rev-card:hover{transform:translateY(-7px);box-shadow:0 18px 40px rgba(92,51,23,.15)}
+.rev-stars{display:flex;gap:2px;margin-bottom:.9rem}
+.rev-star{font-size:1rem;color:var(--gold);animation:starPop .4s ease both}
+@keyframes starPop{from{transform:scale(0) rotate(-30deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+.rev-star:nth-child(1){animation-delay:.05s}.rev-star:nth-child(2){animation-delay:.1s}.rev-star:nth-child(3){animation-delay:.15s}.rev-star:nth-child(4){animation-delay:.2s}.rev-star:nth-child(5){animation-delay:.25s}
+.rev-text{font-size:.9rem;line-height:1.75;color:var(--c5);font-style:italic;margin-bottom:1.3rem}
+.rev-author{display:flex;align-items:center;gap:.7rem}
+.rev-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--verde),#8DC5A8);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.rev-name{font-weight:600;font-size:.85rem;color:var(--c5)}
+.rev-date{font-size:.72rem;color:var(--c4)}
+
+/* ════════════════════════════════════════════
+   EXPERIENCIA
+════════════════════════════════════════════ */
+#experiencia{
+  background:linear-gradient(160deg, var(--c2) 0%, var(--c1) 100%);
+  padding:5.5rem clamp(1.5rem,5vw,3rem);
+}
+.exp-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
+.exp-left .section-tag{display:block;margin-bottom:.6rem}
+.exp-left h2{margin-bottom:1rem}
+.exp-left p{margin-bottom:2rem;color:var(--c4);font-weight:300;line-height:1.75}
+.exp-items{display:grid;gap:1rem}
+.exp-item{
+  display:flex;align-items:center;gap:1rem;
+  background:rgba(255,255,255,.55);
+  border:1px solid rgba(184,137,42,.18);
+  border-radius:14px;padding:1rem 1.3rem;
+  backdrop-filter:blur(8px);
+  transition:transform .3s,background .3s,border-color .3s;
+}
+.exp-item:hover{transform:translateX(7px);background:rgba(255,255,255,.85);border-color:rgba(74,133,106,.3)}
+.exp-item-ic{font-size:1.35rem;animation:float 4.5s ease-in-out infinite;flex-shrink:0}
+.exp-item:nth-child(2) .exp-item-ic{animation-delay:.5s}
+.exp-item:nth-child(3) .exp-item-ic{animation-delay:1s}
+.exp-item:nth-child(4) .exp-item-ic{animation-delay:1.5s}
+.exp-item:nth-child(5) .exp-item-ic{animation-delay:2s}
+.exp-item:nth-child(6) .exp-item-ic{animation-delay:2.5s}
+.exp-check{color:var(--verde);font-weight:700;font-size:.85rem;flex-shrink:0}
+.exp-text{font-size:.88rem;color:var(--c5)}
+.exp-right{
+  background:rgba(255,255,255,.6);
+  border:1px solid rgba(184,137,42,.2);
+  border-radius:24px;padding:3rem 2rem;text-align:center;
+  backdrop-filter:blur(14px);
+  box-shadow:0 8px 32px var(--sombra);
+}
+.exp-big-ic{font-size:6rem;animation:float 3.5s ease-in-out infinite;display:block;line-height:1;margin-bottom:1rem}
+.exp-brand{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--c5);letter-spacing:.06em}
+.exp-tag{font-size:.8rem;color:var(--c4);margin-top:.3rem}
+.exp-stats{display:flex;gap:1.5rem;justify-content:center;margin-top:2rem;flex-wrap:wrap}
+.exp-stat-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--verde);display:block;line-height:1}
+.exp-stat-lbl{font-size:.68rem;color:var(--c4);letter-spacing:.06em;text-transform:uppercase}
+
+/* ════════════════════════════════════════════
+   MAPA
+════════════════════════════════════════════ */
+#mapa{
+  background:var(--c5);
+  padding:5.5rem clamp(1.5rem,5vw,3rem);
+  position:relative;overflow:hidden;
+}
+#mapa::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(74,133,106,.12) 0%,transparent 70%);
+}
+.mapa-wrap{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1fr 1.65fr;gap:2.8rem;align-items:start;position:relative;z-index:1}
+.mapa-info .section-tag{color:var(--verd2)}
+.mapa-info h2{color:var(--blanco)}
+.mapa-info h2 em{color:var(--verd2)}
+.mapa-info p{color:rgba(253,250,245,.6);font-weight:300;margin-bottom:2rem;line-height:1.75}
+.mapa-details{display:flex;flex-direction:column;gap:1rem;margin-bottom:1.8rem}
+.mapa-row{
+  display:flex;align-items:flex-start;gap:.85rem;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;padding:1rem 1.2rem;
+  transition:background .3s,transform .3s;
+}
+.mapa-row:hover{background:rgba(74,133,106,.15);transform:translateX(5px)}
+.mapa-row-ic{font-size:1.25rem;flex-shrink:0;margin-top:.1rem}
+.mapa-row-lbl{font-size:.66rem;color:rgba(253,250,245,.4);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.15rem}
+.mapa-row-val{font-size:.88rem;font-weight:500;color:var(--blanco)}
+.btn-maps{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--verde);color:#fff;
+  padding:.85rem 1.8rem;border-radius:50px;
+  font-size:.88rem;font-weight:600;letter-spacing:.04em;
+  transition:background var(--t),transform .2s;
+}
+.btn-maps:hover{background:var(--verd2);transform:translateY(-3px)}
+.mapa-embed{
+  border-radius:20px;overflow:hidden;
+  border:2px solid rgba(74,133,106,.35);
+  box-shadow:0 24px 60px rgba(0,0,0,.35);
+  position:relative;
+}
+.mapa-embed iframe{display:block;width:100%;height:420px;border:0}
+.mapa-pin-badge{
+  position:absolute;top:12px;left:12px;z-index:2;
+  background:rgba(58,31,10,.9);backdrop-filter:blur(8px);
+  border:1px solid rgba(74,133,106,.4);
+  border-radius:10px;padding:.45rem .9rem;
+  font-size:.73rem;font-weight:600;color:var(--verd2);
+  display:flex;align-items:center;gap:.4rem;
+}
+
+/* ════════════════════════════════════════════
+   CTA FINAL
+════════════════════════════════════════════ */
+#cta{
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 50%,rgba(74,133,106,.1) 0%,transparent 70%),
+    linear-gradient(160deg,var(--c2) 0%,var(--c1) 100%);
+  padding:6rem clamp(1.5rem,6vw,3rem);text-align:center;
+  position:relative;overflow:hidden;
+}
+.cta-wrap{position:relative;z-index:1;max-width:640px;margin:0 auto}
+.cta-flame{font-size:3.5rem;animation:flicker 2s infinite;display:block;margin-bottom:1rem}
+#cta h2{margin-bottom:1rem}
+#cta p{color:var(--c4);font-weight:300;line-height:1.8;max-width:400px;margin:0 auto 2.5rem}
+.btn-cta-big{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:var(--c5);color:var(--blanco);
+  padding:1.1rem 3.6rem;border-radius:50px;
+  font-size:1.05rem;font-weight:700;letter-spacing:.05em;
+  animation:pulse 2.5s ease-in-out infinite;
+  transition:background var(--t),transform .2s;
+}
+.btn-cta-big:hover{animation:none;background:var(--verde);transform:scale(1.05);box-shadow:0 8px 28px rgba(74,133,106,.4)}
+.cta-meta{margin-top:1.5rem;font-size:.77rem;color:var(--c4);display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+
+/* ════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════ */
+footer{
+  background:var(--c6);
+  padding:3.5rem clamp(1.5rem,5vw,3rem) 2rem;
+  border-top:1px solid rgba(184,137,42,.2);
+}
+.footer-grid{
+  max-width:1140px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;
+  padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.08);
+  margin-bottom:1.5rem;
+}
+.footer-brand{}
+.footer-logo{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem}
+.footer-logo-ic{font-size:1.4rem}
+.footer-logo-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--blanco)}
+.footer-logo-name em{color:var(--gold2);font-style:normal}
+.footer-tagline{font-size:.78rem;color:rgba(253,250,245,.38);line-height:1.65;max-width:190px}
+.footer-col h4{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold2);margin-bottom:1rem}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:.5rem}
+.footer-col ul li a{font-size:.82rem;color:rgba(253,250,245,.4);transition:color var(--t)}
+.footer-col ul li a:hover{color:var(--verd2)}
+.footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem;font-size:.72rem;color:rgba(253,250,245,.25)}
+.footer-bottom a{color:var(--verd2)}
+
+/* ════════════════════════════════════════════
+   SECTION HEADINGS SHARED
+════════════════════════════════════════════ */
+.section-tag{
+  display:inline-block;
+  font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--verde);margin-bottom:.6rem;
+}
+.section-tag::before{content:'— '}.section-tag::after{content:' —'}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,5vw,3rem);font-weight:700;line-height:1.1;
+  color:var(--c6);margin-bottom:.8rem;
+}
+.section-title em{font-style:italic;color:var(--verde)}
+.section-lead{font-size:.96rem;color:var(--c4);font-weight:300;max-width:520px;line-height:1.8}
+.sec-center{text-align:center}
+.sec-center .section-lead{margin:0 auto}
+.underbar{
+  width:60px;height:3px;
+  background:linear-gradient(90deg,var(--verde),var(--gold2));
+  border-radius:2px;margin:.9rem auto 0;
+  animation:revealBar 1s .5s both;
+}
+.sec-left .underbar{margin-left:0}
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════ */
+@media(max-width:1024px){
+  .exp-wrap{grid-template-columns:1fr}
+  .exp-right{order:-1}
+  .mapa-wrap{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  header{grid-template-columns:auto 1fr auto}
+  .header-left nav,.header-right{display:none}
+  .header-center{justify-content:flex-start;margin-left:.5rem}
+  .hamburger{display:flex}
+  .galeria-grid-static{grid-template-columns:1fr 1fr}
+  .cards-row{grid-template-columns:repeat(auto-fit,minmax(165px,1fr))}
+  .reviews-row{grid-template-columns:1fr}
+  .exp-wrap{gap:2rem}
+  .exp-stats{gap:1rem}
+  .mapa-embed iframe{height:320px}
+}
+@media(max-width:520px){
+  .hero-title{font-size:3rem}
+  .hero-btns{flex-direction:column;align-items:center}
+  .btn-solid,.btn-ghost{width:100%;justify-content:center;padding:.85rem 2rem}
+  .galeria-grid-static{grid-template-columns:1fr}
+  .info-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr}
+  .hero-floating-icons{gap:1.5rem}
+  .header-center .logo-name{font-size:1.1rem}
+  .carousel-track-wrapper::before,.carousel-track-wrapper::after{width:60px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header id="site-header">
+  <div class="header-left">
+    <nav class="hdr-nav" aria-label="Navegación principal">
+      <a href="#galeria">Galería</a>
+      <a href="#especialidades">Menú</a>
+    </nav>
+  </div>
+
+  <a href="#hero" class="header-center">
+    <span class="logo-icon-hdr">🌮</span>
+    <span class="logo-name">Taquería <em>Habanna's</em></span>
+  </a>
+
+  <div class="header-right">
+    <nav class="hdr-nav" aria-label="Navegación secundaria">
+      <a href="#opiniones">Reseñas</a>
+      <a href="#mapa">Ubicación</a>
+      <a href="#cta" class="hdr-cta">Pedir ahora</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<nav class="mobile-menu" id="mobile-menu" aria-label="Menú móvil">
+  <a href="#galeria" class="mobile-link">📸 Galería</a>
+  <a href="#especialidades" class="mobile-link">🌮 Menú</a>
+  <a href="#opiniones" class="mobile-link">⭐ Reseñas</a>
+  <a href="#mapa" class="mobile-link">📍 Ubicación</a>
+  <a href="#cta" class="hdr-cta mobile-link">🛵 Pedir ahora</a>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="hero">
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+  <div class="hero-blob hero-blob-3"></div>
+
+  <div class="hero-content">
+    <div class="hero-chip"><span>🔥</span> Street Food Premium · Coapa, CDMX</div>
+
+    <h1 class="hero-title">
+      Taquería<br>
+      <span class="line2">Habanna<span class="apostrophe">'</span>s</span>
+    </h1>
+
+    <p class="hero-sub">
+      Auténtico sabor mexicano servido con tradición,<br>
+      cocinado con fuego real y pasión de barrio.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#especialidades" class="btn-solid">🌮 Ver Menú</a>
+      <a href="#cta" class="btn-ghost">🛵 Pedir en línea</a>
+    </div>
+
+    <div class="hero-floating-icons">
+      <span class="hero-fi">🌮</span>
+      <span class="hero-fi">🔥</span>
+      <span class="hero-fi">🥩</span>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Descubre</span>
+    <span class="hero-scroll-arrow">↓</span>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="section-blur-divider" style="background:linear-gradient(var(--c2),var(--c1))"></div>
+
+<!-- ═══════════ INFO BAR ═══════════ -->
+<div id="info-bar">
+  <div class="info-wrap">
+    <div class="info-grid">
+      <div class="info-card reveal d1"><span class="info-card-icon">⭐</span><div><div class="info-card-label">Calificación</div><div class="info-card-val gold">4.4 / 5</div></div></div>
+      <div class="info-card reveal d2"><span class="info-card-icon">📝</span><div><div class="info-card-label">Opiniones</div><div class="info-card-val">2,228 reseñas</div></div></div>
+      <div class="info-card reveal d3"><span class="info-card-icon">💵</span><div><div class="info-card-label">Precio promedio</div><div class="info-card-val">$100–200 MXN</div></div></div>
+      <div class="info-card reveal d4"><span class="info-card-icon">📍</span><div><div class="info-card-label">Ubicación</div><div class="info-card-val">Coapa, CDMX</div></div></div>
+      <div class="info-card reveal d5"><span class="info-card-icon">🕐</span><div><div class="info-card-label">Horario</div><div class="info-card-val green">Abierto · hasta 1 AM</div></div></div>
+      <div class="info-card reveal d6"><span class="info-card-icon">🚗</span><div><div class="info-card-label">Servicio</div><div class="info-card-val">Al automóvil</div></div></div>
+      <div class="info-card reveal d1"><span class="info-card-icon">🛵</span><div><div class="info-card-label">Entrega</div><div class="info-card-val">Sin contacto</div></div></div>
+      <div class="info-card reveal d2"><span class="info-card-icon">🍽</span><div><div class="info-card-label">Modalidad</div><div class="info-card-val">En lugar</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- DIVIDER -->
+<div class="section-blur-divider" style="background:linear-gradient(var(--c1),var(--c1))"></div>
+
+<!-- ═══════════ GALERÍA ═══════════ -->
+<section id="galeria">
+  <div class="galeria-header sec-center reveal">
+    <span class="section-tag">El ambiente</span>
+    <h2 class="section-title">Así se vive <em>Habanna's</em></h2>
+    <p class="section-lead">Trompo encendido, tortillas recién hechas y noches llenas de sabor.</p>
+    <div class="underbar"></div>
+  </div>
+
+  <!-- CARRUSEL AUTOMÁTICO INFINITO -->
+  <div class="carousel-track-wrapper">
+    <div class="carousel-track" id="carousel">
+      <!-- Set 1 -->
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=700&q=80" alt="Taco al pastor"/><div class="car-slide-overlay"><span class="car-slide-label">🔥 Pastor del trompo</span></div></div>
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=700&q=80" alt="Tacos servidos"/><div class="car-slide-overlay"><span class="car-slide-label">🌮 Tacos bien servidos</span></div></div>
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=700&q=80" alt="Taco de bistec"/><div class="car-slide-overlay"><span class="car-slide-label">🥩 Taco de Bistec</span></div></div>
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1640719028782-8230f1bdc6b7?w=700&q=80" alt="Burrito"/><div class="car-slide-overlay"><span class="car-slide-label">🌯 Burrito de Pastor</span></div></div>
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?w=700&q=80" alt="Salsas"/><div class="car-slide-overlay"><span class="car-slide-label">🌶 Salsas especiales</span></div></div>
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?w=700&q=80" alt="Quesadilla"/><div class="car-slide-overlay"><span class="car-slide-label">🧀 Quesadilla especial</span></div></div>
+      <!-- Set 2 – copia para loop infinito -->
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=700&q=80" alt="Taco al pastor"/><div class="car-slide-overlay"><span class="car-slide-label">🔥 Pastor del trompo</span></div></div>
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=700&q=80" alt="Tacos servidos"/><div class="car-slide-overlay"><span class="car-slide-label">🌮 Tacos bien servidos</span></div></div>
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=700&q=80" alt="Taco de bistec"/><div class="car-slide-overlay"><span class="car-slide-label">🥩 Taco de Bistec</span></div></div>
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1640719028782-8230f1bdc6b7?w=700&q=80" alt="Burrito"/><div class="car-slide-overlay"><span class="car-slide-label">🌯 Burrito de Pastor</span></div></div>
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?w=700&q=80" alt="Salsas"/><div class="car-slide-overlay"><span class="car-slide-label">🌶 Salsas especiales</span></div></div>
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?w=700&q=80" alt="Quesadilla"/><div class="car-slide-overlay"><span class="car-slide-label">🧀 Quesadilla especial</span></div></div>
+    </div>
+  </div>
+
+  <!-- Grid estático centrado -->
+  <div class="galeria-grid-static">
+    <div class="g-foto reveal d1"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500&q=80" alt="Tacos"/><div class="g-foto-ov"><span class="g-foto-lbl">🌮 Tacos de la casa</span></div></div>
+    <div class="g-foto reveal d2"><img src="https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=500&q=80" alt="Pastor"/><div class="g-foto-ov"><span class="g-foto-lbl">🔥 Al pastor</span></div></div>
+    <div class="g-foto reveal d3"><img src="https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?w=500&q=80" alt="Salsas"/><div class="g-foto-ov"><span class="g-foto-lbl">🌶 Salsas artesanales</span></div></div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="section-blur-divider" style="background:linear-gradient(var(--c1),var(--c2))"></div>
+
+<!-- ═══════════ ESPECIALIDADES ═══════════ -->
+<section id="especialidades">
+  <div class="sec-center reveal">
+    <span class="section-tag">Nuestro menú</span>
+    <h2 class="section-title">Las <em>Especialidades</em> de la Casa</h2>
+    <p class="section-lead">Ingredientes frescos, recetas de familia y el fuego que da el sabor auténtico.</p>
+    <div class="underbar"></div>
+  </div>
+  <div class="cards-wrap">
+    <div class="cards-row">
+      <div class="taco-card reveal d1"><div class="card-shimmer"></div><span class="card-emoji-big">🌮</span><div class="card-title">Taco de Tripa</div><p class="card-body">Tripa crujiente y bien sazonada, con cebolla, cilantro y salsa verde.</p><span class="card-pill">Clásico</span></div>
+      <div class="taco-card reveal d2"><div class="card-shimmer"></div><span class="card-emoji-big">🥩</span><div class="card-title">Tacos de Bistec</div><p class="card-body">Bistec a las brasas, jugoso y con el corte perfecto.</p><span class="card-pill">Favorito</span></div>
+      <div class="taco-card reveal d3"><div class="card-shimmer"></div><span class="card-emoji-big">🔥</span><div class="card-title">Taco al Pastor</div><p class="card-body">Del trompo directo a tu tortilla. Con piña, cebollita y salsa especial.</p><span class="card-pill hot">⚡ El más pedido</span></div>
+      <div class="taco-card reveal d4"><div class="card-shimmer"></div><span class="card-emoji-big">🌯</span><div class="card-title">Burrito de Pastor</div><p class="card-body">Pastor con queso derretido en tortilla de harina. Grandioso y generoso.</p><span class="card-pill">Especial</span></div>
+      <div class="taco-card reveal d5"><div class="card-shimmer"></div><span class="card-emoji-big">🌶</span><div class="card-title">Salsas Especiales</div><p class="card-body">Verde, roja, aguacate y habanera. Elaboradas en casa cada día.</p><span class="card-pill hot">🌶 Picosas</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="section-blur-divider" style="background:linear-gradient(var(--c2),var(--c3))"></div>
+
+<!-- ═══════════ OPINIONES ═══════════ -->
+<section id="opiniones">
+  <div class="sec-center reveal">
+    <span class="section-tag">Lo que dicen</span>
+    <h2 class="section-title">Opiniones que nos <em>enorgullecen</em></h2>
+    <p class="section-lead">Más de 2,228 clientes satisfechos avalan nuestro sabor y servicio.</p>
+    <div class="underbar"></div>
+  </div>
+  <div class="reviews-wrap">
+    <div class="reviews-row">
+      <div class="rev-card reveal-left d1">
+        <div class="rev-stars"><span class="rev-star">★</span><span class="rev-star">★</span><span class="rev-star">★</span><span class="rev-star">★</span><span class="rev-star">★</span></div>
+        <p class="rev-text">Sus tacos están muy ricos y sus burritos de pastor con queso están deliciosos. De los mejores que he probado en Coapa.</p>
+        <div class="rev-author"><div class="rev-avatar">😋</div><div><div class="rev-name">Mariana G.</div><div class="rev-date">hace 2 semanas · Google</div></div></div>
+      </div>
+      <div class="rev-card reveal d2">
+        <div class="rev-stars"><span class="rev-star">★</span><span class="rev-star">★</span><span class="rev-star">★</span><span class="rev-star">★</span><span class="rev-star">★</span></div>
+        <p class="rev-text">Excelente atención, buenos precios y salsas muy buenas. El pastor del trompo es de otro nivel. Regreso siempre.</p>
+        <div class="rev-author"><div class="rev-avatar">🙌</div><div><div class="rev-name">Carlos R.</div><div class="rev-date">hace 1 mes · Google</div></div></div>
+      </div>
+      <div class="rev-card reveal-right d3">
+        <div class="rev-stars"><span class="rev-star">★</span><span class="rev-star">★</span><span class="rev-star">★</span><span class="rev-star">★</span><span class="rev-star">☆</span></div>
+        <p class="rev-text">Servicio rápido y buen sazón. Te atienden bien desde el auto. Llega temprano porque se agotan rápido.</p>
+        <div class="rev-author"><div class="rev-avatar">🌮</div><div><div class="rev-name">Fernanda L.</div><div class="rev-date">hace 3 semanas · Google</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="section-blur-divider" style="background:linear-gradient(var(--c3),var(--c2))"></div>
+
+<!-- ═══════════ EXPERIENCIA ═══════════ -->
+<section id="experiencia">
+  <div class="exp-wrap">
+    <div class="exp-left reveal-left">
+      <span class="section-tag">Por qué elegirnos</span>
+      <h2 class="section-title">Una <em>experiencia</em><br>que vuelves a vivir</h2>
+      <p>Cada visita a Habanna's es un evento. Lo sentimos en cada taco que servimos.</p>
+      <div class="exp-items">
+        <div class="exp-item reveal d1"><span class="exp-item-ic">⚡</span><span class="exp-check">✔</span><span class="exp-text">Servicio rápido sin sacrificar calidad</span></div>
+        <div class="exp-item reveal d2"><span class="exp-item-ic">🧂</span><span class="exp-check">✔</span><span class="exp-text">Buen sazón, recetas de generaciones</span></div>
+        <div class="exp-item reveal d3"><span class="exp-item-ic">🪑</span><span class="exp-check">✔</span><span class="exp-text">Ambiente cómodo para quedarte</span></div>
+        <div class="exp-item reveal d4"><span class="exp-item-ic">🚗</span><span class="exp-check">✔</span><span class="exp-text">Pedidos desde tu automóvil</span></div>
+        <div class="exp-item reveal d5"><span class="exp-item-ic">🛵</span><span class="exp-check">✔</span><span class="exp-text">Entrega a domicilio sin contacto</span></div>
+        <div class="exp-item reveal d6"><span class="exp-item-ic">🌙</span><span class="exp-check">✔</span><span class="exp-text">Muy animado y concurrido por las noches</span></div>
+      </div>
+    </div>
+    <div class="exp-right reveal-right">
+      <span class="exp-big-ic">🌮</span>
+      <div class="exp-brand">Taquería Habanna's</div>
+      <div class="exp-tag">Tradición · Sabor · Comunidad</div>
+      <div class="exp-stats">
+        <div><span class="exp-stat-num">2,228+</span><span class="exp-stat-lbl">Reseñas</span></div>
+        <div><span class="exp-stat-num">4.4 ⭐</span><span class="exp-stat-lbl">Calificación</span></div>
+        <div><span class="exp-stat-num">1 AM</span><span class="exp-stat-lbl">Cerramos</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="section-blur-divider" style="background:linear-gradient(var(--c2),var(--c5))"></div>
+
+<!-- ═══════════ MAPA ═══════════ -->
+<section id="mapa">
+  <div class="mapa-wrap">
+    <div class="mapa-info reveal-left">
+      <span class="section-tag">Encuéntranos</span>
+      <h2 class="section-title">¿Dónde <em>estamos?</em></h2>
+      <p>Visítanos en Coapa, al sur de la CDMX. Te esperamos hasta la 1 de la mañana.</p>
+      <div class="mapa-details">
+        <div class="mapa-row"><span class="mapa-row-ic">📍</span><div><div class="mapa-row-lbl">Dirección</div><div class="mapa-row-val">Av. de las Torres 117, Arboledas del Sur, Tlalpan, CDMX 14370</div></div></div>
+        <div class="mapa-row"><span class="mapa-row-ic">🕐</span><div><div class="mapa-row-lbl">Horario</div><div class="mapa-row-val">Todos los días · Hasta 1:00 AM</div></div></div>
+        <div class="mapa-row"><span class="mapa-row-ic">🚗</span><div><div class="mapa-row-lbl">Acceso</div><div class="mapa-row-val">Servicio al auto disponible en la entrada</div></div></div>
+        <div class="mapa-row"><span class="mapa-row-ic">📞</span><div><div class="mapa-row-lbl">WhatsApp / Pedidos</div><div class="mapa-row-val">55-8494-7537</div></div></div>
+      </div>
+      <a href="https://www.google.com/maps/place/Taqueria+Habanna's/@19.294597,-99.1391125,17z" target="_blank" rel="noopener" class="btn-maps">🗺 Abrir en Google Maps</a>
+    </div>
+    <div class="mapa-embed reveal-right">
+      <div class="mapa-pin-badge">📍 Taquería Habanna's · Coapa</div>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d939.15!2d-99.13918!3d19.29459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ce01a976dadf59%3A0x87039bd0902c84a!2sTaqueria%20Habanna's!5e0!3m2!1ses!2smx!4v1714310000000!5m2!1ses!2smx"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="Ubicación Taquería Habanna's">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="section-blur-divider" style="background:linear-gradient(var(--c5),var(--c2))"></div>
+
+<!-- ═══════════ CTA ═══════════ -->
+<section id="cta">
+  <div class="cta-wrap">
+    <span class="cta-flame reveal">🔥</span>
+    <h2 class="section-title reveal d1">¿Listo para probar los mejores<br><em>tacos de Coapa?</em></h2>
+    <p class="reveal d2">Pide ahora desde donde estés. Rápido, sabroso y con el sabor que solo Habanna's tiene.</p>
+    <a href="#" class="btn-cta-big reveal d3">🌮 Pedir ahora</a>
+    <div class="cta-meta reveal d4">
+      <span>📍 Av. de las Torres 117, Tlalpan</span>
+      <span>🕐 Abierto hasta 1:00 AM</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <span class="footer-logo-ic">🌮</span>
+        <span class="footer-logo-name">Taquería <em>Habanna's</em></span>
+      </div>
+      <p class="footer-tagline">Auténtico sabor mexicano servido con tradición desde Coapa, CDMX.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Menú</h4>
+      <ul>
+        <li><a href="#">Tacos de Tripa</a></li>
+        <li><a href="#">Tacos de Bistec</a></li>
+        <li><a href="#">Tacos al Pastor</a></li>
+        <li><a href="#">Burritos</a></li>
+        <li><a href="#">Salsas Especiales</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Servicios</h4>
+      <ul>
+        <li><a href="#">Consumo en lugar</a></li>
+        <li><a href="#">Servicio al auto</a></li>
+        <li><a href="#">Entrega sin contacto</a></li>
+        <li><a href="#">Pedidos en línea</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="#">📍 Av. de las Torres 117</a></li>
+        <li><a href="#">🕐 Hasta 1:00 AM</a></li>
+        <li><a href="#">📞 55-8494-7537</a></li>
+        <li><a href="#">💬 WhatsApp</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Taquería Habanna's · Todos los derechos reservados.</span>
+    <span>Hecho con 🌮 y sazón en <a href="#">Coapa, CDMX</a></span>
+  </div>
+</footer>
+
+<!-- ════ SCROLL REVEAL SCRIPT ════ -->
+<script>
+(function(){
+  // Scroll reveal
+  var els = document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-rotate');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('active'); io.unobserve(e.target); }
+    });
+  },{threshold:0.12});
+  els.forEach(function(el){ io.observe(el); });
+
+  // Hamburger
+  var hbg = document.getElementById('hamburger');
+  var mob = document.getElementById('mobile-menu');
+  hbg.addEventListener('click',function(){
+    var open = mob.classList.toggle('open');
+    hbg.classList.toggle('open',open);
+    hbg.setAttribute('aria-expanded', open);
+  });
+  // Close mobile menu on link click
+  mob.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      mob.classList.remove('open');
+      hbg.classList.remove('open');
+      hbg.setAttribute('aria-expanded','false');
+    });
+  });
+
+  // Header background on scroll
+  var hdr = document.getElementById('site-header');
+  window.addEventListener('scroll',function(){
+    hdr.style.background = window.scrollY > 60
+      ? 'rgba(245,234,216,.97)'
+      : 'rgba(245,234,216,.88)';
+  }, {passive:true});
+})();
+</script>
+</body>
+</html>
